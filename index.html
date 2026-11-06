@@ -3,7 +3,7 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="color-scheme" content="only light">
+<meta name="color-scheme" content="dark light">
 <title>Истории параллельных миров</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
@@ -32,9 +32,10 @@ body{
 }
 /* Фон отдельным слоем: к нему применяется настройка «Яркость» */
 .bg{position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.30) 100%),url("background.jpg") center/cover no-repeat;
-    filter:brightness(var(--bright,1))}
-:root{color-scheme:only light}
+    background:radial-gradient(ellipse at center,transparent 35%,rgba(0,0,0,.38) 100%),url("background.jpg") center/cover no-repeat}
+/* «Яркость» из настроек — для всего сайта: фон, текст, обложки */
+html.bright .app{filter:brightness(var(--bright,1))}
+:root{color-scheme:dark light}
 .stars{position:absolute;inset:0;opacity:.65;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:75px 75px;animation:drift 28s linear infinite}
 @keyframes drift{to{background-position:75px 75px}}
 header{position:relative;text-align:center;padding:3vh 20px 1.5vh}
@@ -293,6 +294,19 @@ html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
 .v-hint{position:absolute;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);padding:8px 14px;border-radius:99px;background:rgba(10,7,15,.55);font-size:12px;opacity:.85;white-space:nowrap;pointer-events:none;transition:opacity .6s}
 .v-hint.gone{opacity:0}
 @media(max-width:600px){.filter-panel{padding:14px}.chip{padding:7px 12px;font-size:12px}.stories-head .section-title{margin-bottom:12px}}
+
+/* 3–4 истории в ряду на компьютере — страница шире, чтобы обложки и текст не мельчили */
+@media(min-width:601px){
+  html.pc3 .panel{max-width:1520px}
+  html.pc4 .panel{max-width:1880px}
+  html.pc3 main,html.pc4 main{padding-left:3vw;padding-right:3vw}
+  html.pc3 .profile,html.pc4 .profile,html.pc3 .settings,html.pc4 .settings{max-width:620px}
+}
+
+/* текст карточек и панелей — чистый белый, с чуть более плотной тенью для читаемости на светлом фоне */
+.card,.profile,.settings,.filter-panel,.section-title,.subtitle{color:#fff}
+.card,.profile,.settings,.filter-panel{text-shadow:0 1px 2px rgba(45,20,75,.75),0 0 12px rgba(45,20,75,.45)}
+.card p,.badge,.card h3 small{opacity:1}
 </style>
 </head>
 <body class="splash">
@@ -400,14 +414,46 @@ function applyLang(lang){
   document.querySelectorAll('[data-i18n-attr]').forEach(function(el){
     el.dataset.i18nAttr.split(';').forEach(function(pair){var p=pair.split(':');el.setAttribute(p[0],t(p[1]))});
   });
-  // заставки на выбранном языке (с запасной русской)
-  document.querySelectorAll('.cover[data-cover]').forEach(function(el){
-    var f=el.dataset.cover;
-    el.style.backgroundImage=LANG==='ru'?"url('covers/"+f+"')":"url('covers/"+LANG+"/"+f+"'), url('covers/"+f+"')";
-  });
+  applyCovers();
   var sel=document.getElementById('langSelect'); if(sel) sel.value=LANG;
   document.dispatchEvent(new Event('langchange'));
 }
+/* ================= ЗАСТАВКИ =================
+   Компьютер: covers/<язык>/файл → covers/файл
+   Телефон:   covers/mobile/<язык>/файл → covers/mobile/файл → covers/<язык>/файл → covers/файл
+   Берётся первая существующая картинка. Телефонная заставка может быть любой формы
+   (например, вертикальной) — карточка подстроится под её пропорции. */
+var coverCache={};
+function isPhone(){return window.matchMedia('(max-width:600px)').matches}
+function coverCandidates(f){
+  var l=[]; 
+  if(isPhone()){ if(LANG!=='ru') l.push('covers/mobile/'+LANG+'/'+f); l.push('covers/mobile/'+f); }
+  if(LANG!=='ru') l.push('covers/'+LANG+'/'+f);
+  l.push('covers/'+f);
+  return l;
+}
+function resolveCover(f,cb){
+  var list=coverCandidates(f), key=list.join('|');
+  if(coverCache[key]) return cb(coverCache[key]);
+  (function next(i){
+    if(i>=list.length) return cb({url:'covers/'+f,w:16,h:9,mobile:false});
+    var im=new Image();
+    im.onload=function(){var r={url:list[i],w:im.naturalWidth,h:im.naturalHeight,mobile:list[i].indexOf('covers/mobile/')===0};coverCache[key]=r;cb(r)};
+    im.onerror=function(){next(i+1)};
+    im.src=list[i];
+  })(0);
+}
+function applyCovers(){
+  document.querySelectorAll('.cover[data-cover]').forEach(function(el){
+    resolveCover(el.dataset.cover,function(r){
+      el.style.backgroundImage="url('"+r.url+"')";
+      el.style.aspectRatio=r.mobile?(r.w+'/'+r.h):'';
+    });
+  });
+}
+(function(){var wasPhone=isPhone();window.addEventListener('resize',function(){var p=isPhone();if(p!==wasPhone){wasPhone=p;applyCovers()}})})();
+document.addEventListener('langchange',function(){setTimeout(applyCovers,0)});
+
 function showView(id){
   document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===id));
   document.getElementById('gearBtn').classList.toggle('active',id==='settings');
@@ -722,9 +768,12 @@ window.siteMusic=(function(){
   function store(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
   function apply(){
     root.style.setProperty('--bright',cfg.bright/100);
+    root.classList.toggle('bright',cfg.bright!==100);
     root.style.setProperty('--cols-pc',cfg.pc);
     root.style.setProperty('--cols-phone',cfg.phone);
     root.classList.toggle('ph2',cfg.phone==2);
+    root.classList.toggle('pc3',cfg.pc==3);
+    root.classList.toggle('pc4',cfg.pc==4);
     br.value=cfg.bright; out.textContent=cfg.bright+'%';
     document.querySelectorAll('#colsPc button').forEach(function(b){b.classList.toggle('on',+b.dataset.v===cfg.pc)});
     document.querySelectorAll('#colsPhone button').forEach(function(b){b.classList.toggle('on',+b.dataset.v===cfg.phone)});
@@ -799,10 +848,10 @@ window.siteMusic=(function(){
     tx=px-(px-tx)*ns/s; ty=py-(py-ty)*ns/s; s=ns; draw();
   }
   function open(file,label){
-    var base='covers/'+file, local=LANG==='ru'?base:'covers/'+LANG+'/'+file;
-    img.onerror=function(){if(img.src.indexOf(base)<0){img.src=base}};
+    img.onerror=null;
     img.onload=fit;
-    img.alt=label||''; img.src=local;
+    img.alt=label||'';
+    resolveCover(file,function(r){img.src=r.url});
     v.hidden=false; document.body.style.overflow='hidden';
     hint.classList.remove('gone'); clearTimeout(hintTimer); hintTimer=setTimeout(function(){hint.classList.add('gone')},2500);
     try{history.pushState({viewer:1},'')}catch(e){}

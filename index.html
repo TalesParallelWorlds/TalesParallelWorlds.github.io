@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Истории параллельных миров</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D0%B8%20%D0%BF%D0%B0%D1%80%D0%B0%D0%BB%D0%BB%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85%20%D0%BC%D0%B8%D1%80%D0%BE%D0%B2_files/css2_axgS.css" rel="stylesheet">
+<style>
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url('fonts/PlayfairDisplay-Italic-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url('fonts/PlayfairDisplay-Italic-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url('fonts/PlayfairDisplay-Italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/GreatVibes-cyrillic-ext.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F}
+@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/GreatVibes-cyrillic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116}
+@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/GreatVibes-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Great Vibes';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/GreatVibes-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+    font-family:Montserrat,sans-serif;
+    color:#f7f1f6;
+    background:#120d18;
+}
+
+.app{
+    height:100%;
+    display:flex;flex-direction:column;
+    position:relative;
+    overflow:hidden;
+
+    background-image:url("background.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+.app:before{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse,transparent 35%,rgba(0,0,0,.38) 100%);pointer-events:none}
+.stars{position:absolute;inset:0;opacity:.65;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:75px 75px;animation:drift 28s linear infinite}
+@keyframes drift{to{background-position:75px 75px}}
+header{position:relative;text-align:center;padding:3vh 20px 1.5vh}
+.logo{font-family:"Playfair Display","Cormorant Garamond",serif;font-style:italic;font-size:clamp(38px,5.4vw,78px);font-weight:400;letter-spacing:.01em;line-height:1.2;margin:0;padding:0 .15em;text-shadow:0 0 30px rgba(218,168,226,.35)}
+.subtitle{position:relative;opacity:.9;text-shadow:0 1px 10px rgba(50,25,80,.7);letter-spacing:.22em;text-transform:uppercase;font-size:10px;margin-top:34px}
+main{position:relative;flex:1;min-height:0;overflow:auto;padding:1vh 5vw 130px;-webkit-overflow-scrolling:touch}
+.panel{max-width:1150px;margin:auto}
+.section-title{font-family:"Cormorant Garamond",serif;font-size:36px;margin:20px 0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{min-height:300px;border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:25px;position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.035));backdrop-filter:blur(18px);box-shadow:0 18px 60px rgba(0,0,0,.25);transition:.35s}
+.card:hover{transform:translateY(-5px);border-color:rgba(225,181,231,.38)}
+.cover{aspect-ratio:16/9;border-radius:15px;background-color:#2a2033;background-size:cover;background-position:center;margin-bottom:20px;display:grid;place-items:center;font-family:"Cormorant Garamond";font-size:34px;color:#ead5ed}
+.card{display:flex;flex-direction:column}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 10px;min-height:60px}
+.card h3{font-family:"Cormorant Garamond";font-size:30px;line-height:1.1;margin:0}
+.card h3:not(:has(small)){font-size:37px}
+.card h3 small{display:block;font-size:17px;font-style:italic;font-weight:500;opacity:.75;margin-top:3px;letter-spacing:.02em}
+.badge{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.85;white-space:nowrap}
+.card p{font-size:13.5px;line-height:1.65;opacity:.88;margin:0 0 22px;flex:1}
+.play.soon{opacity:.45;cursor:default}
+.play{border:0;border-radius:99px;padding:11px 20px;background:#ead9ed;color:#201524;font-weight:600;cursor:pointer}
+.card .play{align-self:flex-start;padding:16px 46px;font-size:16px;letter-spacing:.06em;box-shadow:0 8px 30px rgba(234,217,237,.18);transition:.25s}
+.card .play:not(.soon):hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(234,217,237,.35)}
+.empty{opacity:.6;text-align:center;padding:80px 20px}
+nav{position:absolute;z-index:5;bottom:18px;left:50%;transform:translateX(-50%);width:min(820px,94vw);padding:10px;display:flex;justify-content:space-around;gap:5px;border:1px solid rgba(255,255,255,.12);border-radius:24px;background:rgba(18,13,25,.72);backdrop-filter:blur(22px);box-shadow:0 15px 60px rgba(0,0,0,.35)}
+nav button{border:0;background:transparent;color:#fff;opacity:.58;padding:10px 15px;border-radius:15px;cursor:pointer;font:500 12px Montserrat;transition:.25s}
+nav button.active,nav button:hover{opacity:1;background:rgba(255,255,255,.09)}
+.view{display:none;animation:fade .45s ease}.view.active{display:block}
+@keyframes appear{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.modal{display:none;position:fixed;inset:0;z-index:20;background:rgba(4,3,7,.78);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}.modalbox{width:min(900px,95vw);height:min(650px,88vh);border-radius:22px;background:#17111d;border:1px solid rgba(255,255,255,.15);padding:20px;display:flex;flex-direction:column}
+.modalbox h2{font-family:"Cormorant Garamond";font-size:32px;margin:0 0 12px}.gamearea{flex:1;border-radius:15px;background:#09070d;display:grid;place-items:center;color:#777;text-align:center}.gamearea{overflow:hidden}.gamearea iframe{width:100%;height:100%;border:0;display:block;background:#09070d}
+@media(max-width:600px){.modal{padding:0}.modalbox{width:100vw;height:100vh;border-radius:0;padding:10px}.modalbox h2{font-size:24px;margin:0 0 6px}}
+.close{align-self:flex-end;background:none;border:0;color:#fff;font-size:25px;cursor:pointer}
+@media(max-width:600px){nav button{font-size:9px;padding:9px 5px}.logo{font-size:40px}.subtitle{font-size:8px}}
+
+/* ---------- Звёзды ---------- */
+#starfield{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+
+/* ---------- Профиль ---------- */
+.profile{max-width:620px;margin:0 auto;padding:30px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.035));backdrop-filter:blur(18px);box-shadow:0 18px 60px rgba(0,0,0,.25);text-align:center}
+.avatar{width:210px;height:210px;margin:0 auto 18px;border-radius:50%;background:#2a2033 center/cover no-repeat;border:2px solid rgba(234,217,237,.55);box-shadow:0 0 40px rgba(218,168,226,.25);display:grid;place-items:center;font-family:"Cormorant Garamond",serif;font-size:80px;color:#ead5ed;cursor:pointer;position:relative;overflow:hidden}
+@media(max-width:600px){.avatar{width:170px;height:170px;font-size:64px}}
+.avatar .hint{position:absolute;inset:auto 0 0 0;padding:8px 0 14px;font:500 11px Montserrat;letter-spacing:.08em;background:rgba(0,0,0,.45);opacity:0;transition:.25s}
+.avatar:hover .hint{opacity:1}
+.p-name{font-family:"Cormorant Garamond",serif;font-size:38px;margin:0}
+.p-status{opacity:.7;font-style:italic;margin:8px 0 22px;min-height:1.2em;font-size:14px}
+.p-form{display:grid;gap:14px;text-align:left;margin-top:10px}
+.p-form label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
+.p-form input[type=text]{width:100%;margin-top:6px;padding:12px 15px;border-radius:13px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.28);color:#f7f1f6;font:14px Montserrat;outline:none;transition:.25s}
+.p-form input[type=text]:focus{border-color:rgba(225,181,231,.6)}
+.p-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.ghost{border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:11px 20px;background:transparent;color:#f7f1f6;cursor:pointer;font:500 13px Montserrat}
+.saved{font-size:12px;opacity:0;transition:.4s;margin-top:10px;color:#ead9ed}.saved.show{opacity:.8}
+
+/* ---------- Шестерёнка настроек ---------- */
+.gear{position:absolute;z-index:6;top:18px;right:18px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(18,13,25,.55);backdrop-filter:blur(14px);color:#f7f1f6;cursor:pointer;display:grid;place-items:center;opacity:.75;transition:.3s}
+.gear svg{width:22px;height:22px;transition:transform .6s ease}
+.gear:hover,.gear.active{opacity:1;border-color:rgba(225,181,231,.45)}
+.gear:hover svg{transform:rotate(90deg)}
+
+#favCards{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+/* ---------- Сердечко ---------- */
+.heart{position:absolute;z-index:2;top:34px;left:34px;width:40px;height:40px;border:0;border-radius:50%;background:rgba(0,0,0,.18);backdrop-filter:blur(4px);cursor:pointer;display:grid;place-items:center;padding:0;transition:.25s}
+.heart svg{width:24px;height:24px;fill:transparent;stroke:#fff;stroke-width:1.7;transition:.3s;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.heart:hover svg{transform:scale(1.1)}
+.heart.on svg{fill:rgba(255,190,215,.55);stroke:#ffd6e5}
+.heart.pop svg{animation:pop .45s ease}
+@keyframes pop{40%{transform:scale(1.35)}100%{transform:scale(1)}}
+
+/* ---------- Выбор области фото ---------- */
+.cropbox{width:min(420px,94vw);border-radius:22px;background:#17111d;border:1px solid rgba(255,255,255,.15);padding:22px;text-align:center}
+.cropbox h2{font-family:"Cormorant Garamond";font-size:30px;margin:0 0 14px}
+.crop-area{position:relative;width:min(320px,74vw);aspect-ratio:1;margin:0 auto;border-radius:14px;overflow:hidden;background:#09070d;touch-action:none;cursor:grab}
+.crop-area:active{cursor:grabbing}
+.crop-area canvas{width:100%;height:100%;display:block}
+.crop-ring{position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 9999px rgba(0,0,0,.55);border:2px solid rgba(234,217,237,.8);pointer-events:none}
+.crop-zoom{width:min(320px,74vw);margin:18px auto 6px;display:block;accent-color:#ead9ed}
+.crop-hint{font-size:11px;opacity:.55;margin:6px 0 14px}
+@media(max-width:600px){header{padding-left:54px;padding-right:54px}.gear{top:12px;right:12px;width:40px;height:40px}.heart{top:30px;left:30px}}
+
+/* ---------- Настройки ---------- */
+.settings{max-width:620px;margin:0 auto;padding:26px 30px;border:1px solid rgba(255,255,255,.12);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.035));backdrop-filter:blur(18px);box-shadow:0 18px 60px rgba(0,0,0,.25)}
+.set-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.set-row:last-child{border-bottom:0}
+.set-title{font-size:14px}.set-sub{font-size:11px;opacity:.55;margin-top:3px}
+.switch{position:relative;width:48px;height:26px;flex:none}
+.switch input{opacity:0;width:0;height:0}
+.switch span{position:absolute;inset:0;border-radius:99px;background:rgba(255,255,255,.15);cursor:pointer;transition:.3s}
+.switch span:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;border-radius:50%;background:#f7f1f6;transition:.3s}
+.switch input:checked+span{background:rgba(234,180,215,.65)}
+.switch input:checked+span:before{transform:translateX(22px)}
+.vol{display:flex;align-items:center;gap:12px;flex:0 1 240px}
+.vol input{flex:1;accent-color:#ead9ed}
+.vol output{width:38px;text-align:right;font-size:12px;opacity:.7}
+.set-row.off .vol{opacity:.35;pointer-events:none}
+
+/* ---------- Заставка ----------
+   Пока на body класс .splash, виден только фон со звёздами и название по центру.
+   Клик в любом месте — заставка плавно уходит, появляется сайт и включается музыка. */
+header,main,nav,.gear{transition:opacity 1.4s ease}
+.splash header,.splash main,.splash nav,.splash .gear{opacity:0;pointer-events:none}
+.intro{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;cursor:pointer;transition:opacity 1.2s ease}
+.intro .logo{font-size:clamp(42px,6.8vw,100px);animation:introIn 2.4s .3s ease both}
+.intro .tap{margin-top:34px;font-size:12px;letter-spacing:.3em;text-shadow:0 1px 10px rgba(50,25,80,.8);text-transform:uppercase;opacity:0;animation:tapIn 1.5s 2.3s ease forwards,breathe 3s 3.8s ease-in-out infinite}
+.intro.hide{opacity:0;pointer-events:none}
+@keyframes introIn{from{opacity:0;transform:scale(.94);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes tapIn{to{opacity:.9}}
+@keyframes breathe{50%{opacity:.45}}
+
+/* Текст на светлых стеклянных блоках — лёгкая тень для читаемости */
+.card,.profile,.settings{text-shadow:0 1px 3px rgba(40,20,70,.55),0 0 14px rgba(40,20,70,.35)}
+.card p{opacity:1}.badge{opacity:.95}
+.card .play,.p-form input{text-shadow:none}
+
+/* ================= АДАПТИВНАЯ ВЁРСТКА =================
+   Всё ниже действует только на планшетах и телефонах. */
+@media(max-width:1024px){
+  @supports(height:100dvh){html,body,.app{height:100dvh}}
+  button,.card,.avatar{-webkit-tap-highlight-color:transparent}
+  main{padding:1vh 4vw calc(120px + env(safe-area-inset-bottom))}
+  .cards{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+  .card{padding:22px}
+  .heart{top:31px;left:31px}
+  nav{width:min(720px,94vw);bottom:calc(14px + env(safe-area-inset-bottom))}
+  .modalbox{width:96vw;height:92vh}
+}
+/* Телефон в горизонтальном положении — игра на весь экран */
+@media(max-height:520px) and (orientation:landscape){
+  header{padding:10px 60px 4px}.logo{font-size:34px}.subtitle{margin-top:14px}
+  nav{bottom:6px;padding:4px;width:min(600px,80vw)}nav button{padding:7px 6px}
+  .gear{top:8px;right:10px;width:38px;height:38px}
+  .modal{padding:0}.modalbox{width:100vw;height:100dvh;border-radius:0;padding:6px 10px}
+  .modalbox h2{display:none}.close{position:absolute;top:4px;right:10px;z-index:2}
+}
+@media(max-width:600px){
+  header{padding:18px 52px 6px}
+  .logo{font-size:clamp(30px,8.6vw,44px)}
+  .subtitle{font-size:8.5px;letter-spacing:.16em;margin-top:22px;line-height:1.6}
+  .intro .logo{font-size:clamp(34px,10.5vw,58px)}
+  .intro .tap{font-size:11px}
+  main{padding:0 14px calc(104px + env(safe-area-inset-bottom))}
+  .section-title{font-size:28px;margin:14px 0 12px}
+  .cards{grid-template-columns:1fr;gap:16px}
+  .card{padding:16px;border-radius:18px;min-height:0}
+  .card:hover{transform:none}
+  .cover{margin-bottom:14px;border-radius:12px}
+  .heart{top:24px;left:24px;width:38px;height:38px}
+  .card-head{min-height:0}
+  .card h3{font-size:27px}
+  .card h3:not(:has(small)){font-size:32px}
+  .card p{font-size:14px;margin-bottom:18px}
+  .card .play{align-self:stretch;padding:15px;font-size:16px}
+  nav{width:calc(100vw - 20px);bottom:calc(10px + env(safe-area-inset-bottom));padding:6px;gap:2px;border-radius:20px}
+  nav button{flex:1;font-size:10px;padding:10px 2px;white-space:nowrap}
+  .profile,.settings{padding:22px 16px}
+  .p-name{font-size:30px}
+  .p-actions .play,.p-actions .ghost{flex:1 1 100%}
+  .set-row{flex-wrap:wrap;gap:12px}
+  .vol{flex:1 1 100%}
+  .modalbox{width:100vw;height:100dvh}
+  .empty{padding:50px 10px}
+}
+@media(max-width:380px){
+  .logo{font-size:28px}
+  .subtitle{font-size:7.5px;letter-spacing:.12em}
+  nav button{font-size:9px}
+  .card h3{font-size:24px}
+  .card h3:not(:has(small)){font-size:28px}
+}
+
+/* ================= ИГРА НА ВЕСЬ ЭКРАН ================= */
+.modal.open{padding:0;background:#07050b;backdrop-filter:none}
+.modal .modalbox{position:relative;width:100vw;height:100vh;max-width:none;border:0;border-radius:0;padding:0;background:#07050b}
+@supports(height:100dvh){.modal .modalbox{height:100dvh}}
+.modal .modalbox h2{display:none}
+.modal .gamearea{border-radius:0;background:#07050b}
+.modal .close{position:absolute;z-index:3;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));
+  width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(10,7,15,.45);
+  backdrop-filter:blur(8px);color:#fff;font-size:24px;line-height:1;display:grid;place-items:center;opacity:.55;transition:.25s;padding:0}
+.modal .close:hover{opacity:1;background:rgba(10,7,15,.75)}
+#modal:fullscreen{background:#07050b}
+
+/* ---------- Выбор языка ---------- */
+.lang-select{flex:0 1 240px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(20,12,30,.45);color:#f7f1f6;font:14px Montserrat,sans-serif;outline:none;cursor:pointer}
+.lang-select option{background:#241a30;color:#f7f1f6}
+@media(max-width:600px){.lang-select{flex:1 1 100%}}
+/* ---------- Корейский: подходящие шрифты, без наклона ---------- */
+html[lang=ko] body{font-family:Montserrat,"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+html[lang=ko] .logo,html[lang=ko] .card h3,html[lang=ko] .section-title,html[lang=ko] .p-name,html[lang=ko] .card h3 small{font-family:"Nanum Myeongjo","Batang","AppleMyungjo","Noto Serif KR",serif;font-style:normal;letter-spacing:0;word-break:keep-all}
+html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
+</style>
+</head>
+<body class="splash">
+<div class="app"><canvas id="starfield"></canvas>
+<audio id="siteMusic" src="music/site_music.mp3" loop preload="auto"></audio>
+<button class="gear" id="gearBtn" title="Настройки" aria-label="Настройки" data-i18n-attr="title:settings.title;aria-label:settings.title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+<main>
+<header><h1 class="logo" data-i18n="site.title">Истории параллельных миров</h1><div class="subtitle" data-i18n="site.subtitle">там, где каждая история становится реальностью</div></header>
+<section id="stories" class="view active"><div class="panel">
+<div class="section-title" data-i18n="nav.stories">Истории</div>
+<div class="cards">
+<article class="card" data-id="aliy-rassvet"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_aliy_rassvet.jpg" style="background-image:url('covers/cover_aliy_rassvet.jpg')" role="img" aria-label="Алый рассвет" data-i18n-attr="aria-label:aliy.title"></div><div class="card-head"><h3><span data-i18n="aliy.title">Алый рассвет</span><small data-i18n="aliy.sub">Сорок девять дней</small></h3></div><p data-i18n-html="aliy.desc">Всю жизнь жила в золотой клетке. Что ж, пора её сломать! Но впереди столько тайн и открытий. Первое правило — выжить.</p><button class="play" onclick="openGame()" data-i18n="card.play">Играть</button></article>
+<article class="card" data-id="ten-nadezhdy"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_ten_nadezhdy.jpg" style="background-image:url('covers/cover_ten_nadezhdy.jpg')" role="img" aria-label="Тень надежды" data-i18n-attr="aria-label:ten.title"></div><div class="card-head"><h3 data-i18n="ten.title">Тень надежды</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="ten.desc">Я всегда находила в жизни свет. Но в самые тёмные дни не могла.<br>Воспоминания и надежда — всё, что у меня есть. Пока что…</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+<article class="card" data-id="odin-vdoh"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_odin_vdoh.jpg" style="background-image:url('covers/cover_odin_vdoh.jpg')" role="img" aria-label="Один вдох" data-i18n-attr="aria-label:odin.title"></div><div class="card-head"><h3 data-i18n="odin.title">Один вдох</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="odin.desc">Война пришла в мой дом под чужими знамёнами. Между жизнью и смертью — всего один вдох, и мне решать, кем я стану.</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+<article class="card" data-id="tma-serdca"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_tma_serdca.jpg" style="background-image:url('covers/cover_tma_serdca.jpg')" role="img" aria-label="Тьма Сердца" data-i18n-attr="aria-label:tma.title"></div><div class="card-head"><h3 data-i18n="tma.title">Тьма Сердца</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="tma.desc">Меня вынудили из своей любимой глуши приехать во дворец. Теперь я — ваша главная проблема. А моя — лицемерный принц.</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+<article class="card" data-id="za-granyu"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_za_granyu.jpg" style="background-image:url('covers/cover_za_granyu.jpg')" role="img" aria-label="За Гранью" data-i18n-attr="aria-label:za.title"></div><div class="card-head"><h3 data-i18n="za.title">За Гранью</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="za.desc">По одну сторону — солнце и родной дом, по другую — тёмный лес, где в замке ждёт чудовище. Один шаг за грань, и пути назад уже не будет.</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+<article class="card" data-id="feniks"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_feniks.jpg" style="background-image:url('covers/cover_feniks.jpg')" role="img" aria-label="Феникс" data-i18n-attr="aria-label:feniks.title"></div><div class="card-head"><h3 data-i18n="feniks.title">Феникс</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="feniks.desc">Днём — самая желанная танцовщица столицы, ночью — тень с когтями. Борьба за справедливость даётся тяжело. Каждый восход солнца и луны я умираю и возрождаюсь вновь.</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+<article class="card" data-id="obuzdat-pamyat"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_obuzdat_pamyat.jpg" style="background-image:url('covers/cover_obuzdat_pamyat.jpg')" role="img" aria-label="Обуздать память" data-i18n-attr="aria-label:obuzdat.title"></div><div class="card-head"><h3 data-i18n="obuzdat.title">Обуздать память</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="obuzdat.desc">В один момент моя память меня подводит и делит на части. Чтобы не потерять себя, мне придётся обуздать память двух жизней.</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+<article class="card" data-id="nit-dvuh-mirov"><button class="heart" aria-label="В избранное" title="В избранное"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.6-4.7-9.4-9.3C1.2 7.6 3.5 4 7.1 4c2.1 0 3.8 1.2 4.9 2.8C13.1 5.2 14.8 4 16.9 4c3.6 0 5.9 3.6 4.5 7.2-1.8 4.6-9.4 9.3-9.4 9.3z"/></svg></button><div class="cover" data-cover="cover_nit_dvuh_mirov.jpg" style="background-image:url('covers/cover_nit_dvuh_mirov.jpg')" role="img" aria-label="Нить двух миров" data-i18n-attr="aria-label:nit.title"></div><div class="card-head"><h3 data-i18n="nit.title">Нить двух миров</h3><span class="badge" data-i18n="card.soonBadge">История скоро появится</span></div><p data-i18n-html="nit.desc">Однажды мне дали мгновение свободы, и я потеряла её в будущем. Но и многое обрела…<br>Он — источник моих проблем, но появляется в самый нужный момент.</p><button class="play soon" disabled data-i18n="card.soon">Скоро</button></article>
+</div></div></section>
+<section id="profile" class="view"><div class="panel"><div class="section-title" data-i18n="nav.profile">Профиль</div>
+<div class="profile">
+  <div class="avatar" id="avatar" title="Сменить фото" data-i18n-attr="title:profile.changePhoto"><span id="avatarLetter">✦</span><div class="hint" data-i18n="profile.changePhoto">Сменить фото</div></div>
+  <input type="file" id="photoInput" accept="image/*" hidden>
+  <h2 class="p-name" id="pName">Путешественница</h2>
+  <div class="p-status" id="pStatus">Расскажите о себе</div>
+  <form class="p-form" id="pForm" autocomplete="off">
+    <div><label for="nameInput" data-i18n="profile.name">Имя</label><input type="text" id="nameInput" maxlength="30" placeholder="Как вас зовут?" data-i18n-attr="placeholder:profile.namePh"></div>
+    <div><label for="statusInput" data-i18n="profile.status">Статус</label><input type="text" id="statusInput" maxlength="80" placeholder="Например: в поисках своей истории" data-i18n-attr="placeholder:profile.statusPh"></div>
+    <div class="p-actions">
+      <button type="submit" class="play" data-i18n="profile.save">Сохранить</button>
+      <button type="button" class="ghost" id="adjustPhoto" data-i18n="profile.adjust">Настроить область фото</button>
+      <button type="button" class="ghost" id="removePhoto" data-i18n="profile.remove">Убрать фото</button>
+    </div>
+    <div class="saved" id="savedMsg" data-i18n="profile.saved">Профиль сохранён ✦</div>
+  </form>
+</div>
+</div></section>
+<section id="scenes" class="view"><div class="panel"><div class="section-title" data-i18n="nav.scenes">Кат-сцены</div><div class="empty" data-i18n="scenes.empty">Здесь будут собираться просмотренные кат-сцены.</div></div></section>
+<section id="features" class="view"><div class="panel"><div class="section-title" data-i18n="nav.features">Функции</div><div class="empty" data-i18n="features.empty">Дополнительные функции проекта.</div></div></section>
+<section id="favorites" class="view"><div class="panel"><div class="section-title" data-i18n="nav.favorites">Избранное</div><div class="cards" id="favCards"></div><div class="empty" id="favEmpty" data-i18n-html="favorites.empty">Здесь будут ваши любимые истории.<br>Нажмите ♡ на карточке истории, чтобы добавить её сюда.</div></div></section>
+<section id="settings" class="view"><div class="panel"><div class="section-title" data-i18n="settings.title">Настройки</div>
+<div class="settings">
+  <div class="set-row"><div><div class="set-title" data-i18n="settings.language">Язык</div></div>
+    <select id="langSelect" class="lang-select" aria-label="Язык" data-i18n-attr="aria-label:settings.language">
+      <option value="ru">Русский</option><option value="en">English</option><option value="es">Español</option><option value="de">Deutsch</option><option value="ko">한국어</option>
+    </select></div>
+  <div class="set-row"><div><div class="set-title" data-i18n="settings.music">Музыка сайта</div><div class="set-sub" data-i18n="settings.musicSub">Тихая фоновая мелодия</div></div>
+    <label class="switch"><input type="checkbox" id="musicOn"><span></span></label></div>
+  <div class="set-row" id="volRow"><div><div class="set-title" data-i18n="settings.volume">Громкость</div></div>
+    <div class="vol"><input type="range" id="musicVol" min="0" max="100" step="1" aria-label="Громкость музыки" data-i18n-attr="aria-label:settings.volume"><output id="volOut"></output></div></div>
+</div></div></section>
+</main>
+<nav>
+<button class="active" data-view="stories" data-i18n="nav.stories">Истории</button><button data-view="profile" data-i18n="nav.profile">Профиль</button><button data-view="scenes" data-i18n="nav.scenes">Кат-сцены</button><button data-view="features" data-i18n="nav.features">Функции</button><button data-view="favorites" data-i18n="nav.favorites">Избранное</button>
+</nav>
+<div class="intro" id="intro" role="button" tabindex="0" aria-label="Войти на сайт" data-i18n-attr="aria-label:intro.enter"><div class="logo" data-i18n="site.title">Истории параллельных миров</div><div class="tap" data-i18n="intro.tap">коснитесь экрана</div></div>
+<div id="cropModal" class="modal"><div class="cropbox">
+  <h2 data-i18n="crop.title">Область фото</h2>
+  <div class="crop-area" id="cropArea"><canvas id="cropCanvas" width="600" height="600"></canvas><div class="crop-ring"></div></div>
+  <input type="range" class="crop-zoom" id="cropZoom" min="1" max="4" step="0.01" value="1" aria-label="Приближение" data-i18n-attr="aria-label:crop.zoom">
+  <p class="crop-hint" data-i18n="crop.hint">Перетащите фото, чтобы выбрать область. Приблизьте ползунком или колёсиком мыши.</p>
+  <div class="p-actions"><button type="button" class="play" id="cropOk" data-i18n="crop.ok">Готово</button><button type="button" class="ghost" id="cropCancel" data-i18n="crop.cancel">Отмена</button></div>
+</div></div>
+<div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeGame()" aria-label="Закрыть игру" title="Закрыть игру" data-i18n-attr="aria-label:game.close;title:game.close">×</button><h2 data-i18n="aliy.title">Алый рассвет</h2><div class="gamearea"><iframe id="gameframe" title="Алый рассвет" data-i18n-attr="title:aliy.title" allow="autoplay; fullscreen" allowfullscreen></iframe></div></div></div>
+</div>
+<script>
+/* ================= ЯЗЫКИ =================
+   Все тексты сайта на пяти языках. Язык выбирается в Настройках и запоминается.
+   Заставки историй: covers/<язык>/<файл>.jpg (например covers/en/cover_aliy_rassvet.jpg).
+   Если заставки на нужном языке нет — показывается русская из папки covers. */
+var I18N={"ru": {"site.title": "Истории параллельных миров", "site.subtitle": "там, где каждая история становится реальностью", "nav.stories": "Истории", "nav.profile": "Профиль", "nav.scenes": "Кат-сцены", "nav.features": "Функции", "nav.favorites": "Избранное", "card.play": "Играть", "card.soon": "Скоро", "card.soonBadge": "История скоро появится", "aliy.title": "Алый рассвет", "aliy.sub": "Сорок девять дней", "aliy.desc": "Всю жизнь жила в золотой клетке. Что ж, пора её сломать! Но впереди столько тайн и открытий. Первое правило — выжить.", "ten.title": "Тень надежды", "ten.desc": "Я всегда находила в жизни свет. Но в самые тёмные дни не могла.<br>Воспоминания и надежда — всё, что у меня есть. Пока что…", "odin.title": "Один вдох", "odin.desc": "Война пришла в мой дом под чужими знамёнами. Между жизнью и смертью — всего один вдох, и мне решать, кем я стану.", "za.title": "За Гранью", "za.desc": "По одну сторону — солнце и родной дом, по другую — тёмный лес, где в замке ждёт чудовище. Один шаг за грань, и пути назад уже не будет.", "fav.add": "В избранное", "fav.remove": "Убрать из избранного", "favorites.empty": "Здесь будут ваши любимые истории.<br>Нажмите ♡ на карточке истории, чтобы добавить её сюда.", "scenes.empty": "Здесь будут собираться просмотренные кат-сцены.", "features.empty": "Дополнительные функции проекта.", "profile.changePhoto": "Сменить фото", "profile.defaultName": "Путешественница", "profile.defaultStatus": "Расскажите о себе", "profile.name": "Имя", "profile.namePh": "Как вас зовут?", "profile.status": "Статус", "profile.statusPh": "Например: в поисках своей истории", "profile.save": "Сохранить", "profile.adjust": "Настроить область фото", "profile.remove": "Убрать фото", "profile.saved": "Профиль сохранён ✦", "profile.saveError": "Не удалось сохранить: фото слишком большое или браузер запрещает хранение.", "crop.title": "Область фото", "crop.zoom": "Приближение", "crop.hint": "Перетащите фото, чтобы выбрать область. Приблизьте ползунком или колёсиком мыши.", "crop.ok": "Готово", "crop.cancel": "Отмена", "settings.title": "Настройки", "settings.language": "Язык", "settings.music": "Музыка сайта", "settings.musicSub": "Тихая фоновая мелодия", "settings.volume": "Громкость", "intro.tap": "коснитесь экрана", "intro.enter": "Войти на сайт", "game.close": "Закрыть игру", "tma.title": "Тьма Сердца", "tma.desc": "Меня вынудили из своей любимой глуши приехать во дворец. Теперь я — ваша главная проблема. А моя — лицемерный принц.", "feniks.title": "Феникс", "feniks.desc": "Днём — самая желанная танцовщица столицы, ночью — тень с когтями. Борьба за справедливость даётся тяжело. Каждый восход солнца и луны я умираю и возрождаюсь вновь.", "obuzdat.title": "Обуздать память", "obuzdat.desc": "В один момент моя память меня подводит и делит на части. Чтобы не потерять себя, мне придётся обуздать память двух жизней.", "nit.title": "Нить двух миров", "nit.desc": "Однажды мне дали мгновение свободы, и я потеряла её в будущем. Но и многое обрела…<br>Он — источник моих проблем, но появляется в самый нужный момент."}, "en": {"site.title": "Tales of Parallel Worlds", "site.subtitle": "where every story becomes reality", "nav.stories": "Stories", "nav.profile": "Profile", "nav.scenes": "Cutscenes", "nav.features": "Features", "nav.favorites": "Favorites", "card.play": "Play", "card.soon": "Soon", "card.soonBadge": "Coming soon", "aliy.title": "Scarlet Dawn", "aliy.sub": "Forty-Nine Days", "aliy.desc": "I've spent my whole life in a golden cage. Well, it's time to break it! But so many secrets and discoveries lie ahead. Rule number one: survive.", "ten.title": "Shadow of Hope", "ten.desc": "I always found the light in life. But in the darkest days, I couldn't.<br>Memories and hope are all I have. For now…", "odin.title": "One Breath", "odin.desc": "War came to my home under foreign banners. Between life and death there is only one breath — and I decide who I will become.", "za.title": "Beyond the Edge", "za.desc": "On one side, sunshine and home; on the other, a dark forest where a monster waits in its castle. One step beyond the edge, and there is no turning back.", "fav.add": "Add to favorites", "fav.remove": "Remove from favorites", "favorites.empty": "Your favorite stories will appear here.<br>Tap ♡ on a story card to add it.", "scenes.empty": "Cutscenes you've watched will be collected here.", "features.empty": "Additional project features.", "profile.changePhoto": "Change photo", "profile.defaultName": "Traveler", "profile.defaultStatus": "Tell us about yourself", "profile.name": "Name", "profile.namePh": "What's your name?", "profile.status": "Status", "profile.statusPh": "e.g. searching for my story", "profile.save": "Save", "profile.adjust": "Adjust photo area", "profile.remove": "Remove photo", "profile.saved": "Profile saved ✦", "profile.saveError": "Couldn't save: the photo is too large or the browser blocks storage.", "crop.title": "Photo area", "crop.zoom": "Zoom", "crop.hint": "Drag the photo to choose the area. Zoom with the slider or mouse wheel.", "crop.ok": "Done", "crop.cancel": "Cancel", "settings.title": "Settings", "settings.language": "Language", "settings.music": "Site music", "settings.musicSub": "Soft background melody", "settings.volume": "Volume", "intro.tap": "tap the screen", "intro.enter": "Enter the site", "game.close": "Close game", "tma.title": "Darkness of the Heart", "tma.desc": "I was forced to leave my beloved backwoods and come to the palace. Now I'm your biggest problem. And mine is a hypocritical prince.", "feniks.title": "Phoenix", "feniks.desc": "By day, the most desired dancer in the capital; by night, a shadow with claws. The fight for justice is hard. With every rising of the sun and the moon, I die and am reborn.", "obuzdat.title": "Taming Memory", "obuzdat.desc": "In a single moment, my memory fails me and splits me into pieces. To keep from losing myself, I must tame the memory of two lives.", "nit.title": "Thread of Two Worlds", "nit.desc": "Once I was given a moment of freedom, and I lost it in the future. But I gained so much, too…<br>He is the source of my troubles, yet he always appears at just the right moment."}, "es": {"site.title": "Historias de mundos paralelos", "site.subtitle": "donde cada historia se hace realidad", "nav.stories": "Historias", "nav.profile": "Perfil", "nav.scenes": "Escenas", "nav.features": "Funciones", "nav.favorites": "Favoritos", "card.play": "Jugar", "card.soon": "Pronto", "card.soonBadge": "Próximamente", "aliy.title": "Amanecer escarlata", "aliy.sub": "Cuarenta y nueve días", "aliy.desc": "Toda mi vida he vivido en una jaula de oro. ¡Pues ha llegado la hora de romperla! Pero me esperan tantos secretos y descubrimientos… Primera regla: sobrevivir.", "ten.title": "La sombra de la esperanza", "ten.desc": "Siempre encontraba la luz en la vida. Pero en los días más oscuros no pude.<br>Los recuerdos y la esperanza son todo lo que tengo. Por ahora…", "odin.title": "Un solo aliento", "odin.desc": "La guerra llegó a mi hogar bajo estandartes extranjeros. Entre la vida y la muerte solo hay un aliento, y yo decido en quién me convertiré.", "za.title": "Más allá del límite", "za.desc": "A un lado, el sol y mi hogar; al otro, un bosque oscuro donde un monstruo aguarda en su castillo. Un paso más allá del límite y ya no habrá vuelta atrás.", "fav.add": "Añadir a favoritos", "fav.remove": "Quitar de favoritos", "favorites.empty": "Aquí aparecerán tus historias favoritas.<br>Pulsa ♡ en una historia para añadirla.", "scenes.empty": "Aquí se reunirán las escenas que hayas visto.", "features.empty": "Funciones adicionales del proyecto.", "profile.changePhoto": "Cambiar foto", "profile.defaultName": "Viajera", "profile.defaultStatus": "Cuéntanos sobre ti", "profile.name": "Nombre", "profile.namePh": "¿Cómo te llamas?", "profile.status": "Estado", "profile.statusPh": "Por ejemplo: en busca de mi historia", "profile.save": "Guardar", "profile.adjust": "Ajustar la foto", "profile.remove": "Quitar foto", "profile.saved": "Perfil guardado ✦", "profile.saveError": "No se pudo guardar: la foto es demasiado grande o el navegador bloquea el almacenamiento.", "crop.title": "Área de la foto", "crop.zoom": "Zoom", "crop.hint": "Arrastra la foto para elegir el área. Acerca con el control deslizante o la rueda del ratón.", "crop.ok": "Listo", "crop.cancel": "Cancelar", "settings.title": "Ajustes", "settings.language": "Idioma", "settings.music": "Música del sitio", "settings.musicSub": "Melodía de fondo suave", "settings.volume": "Volumen", "intro.tap": "toca la pantalla", "intro.enter": "Entrar al sitio", "game.close": "Cerrar juego", "tma.title": "Oscuridad del corazón", "tma.desc": "Me obligaron a dejar mi querido rincón perdido y venir al palacio. Ahora soy vuestro mayor problema. Y el mío, un príncipe hipócrita.", "feniks.title": "Fénix", "feniks.desc": "De día, la bailarina más deseada de la capital; de noche, una sombra con garras. La lucha por la justicia es dura. Con cada salida del sol y de la luna, muero y renazco.", "obuzdat.title": "Domar la memoria", "obuzdat.desc": "En un instante, mi memoria me traiciona y me divide en pedazos. Para no perderme, tendré que domar la memoria de dos vidas.", "nit.title": "El hilo de dos mundos", "nit.desc": "Una vez me dieron un instante de libertad, y lo perdí en el futuro. Pero también gané mucho…<br>Él es la fuente de mis problemas, pero aparece justo en el momento preciso."}, "de": {"site.title": "Geschichten paralleler Welten", "site.subtitle": "wo jede Geschichte Wirklichkeit wird", "nav.stories": "Geschichten", "nav.profile": "Profil", "nav.scenes": "Szenen", "nav.features": "Funktionen", "nav.favorites": "Favoriten", "card.play": "Spielen", "card.soon": "Bald", "card.soonBadge": "Demnächst", "aliy.title": "Scharlachrote Morgenröte", "aliy.sub": "Neunundvierzig Tage", "aliy.desc": "Mein ganzes Leben habe ich in einem goldenen Käfig verbracht. Nun, Zeit, ihn zu sprengen! Doch vor mir liegen so viele Geheimnisse und Entdeckungen. Erste Regel: überleben.", "ten.title": "Schatten der Hoffnung", "ten.desc": "Ich habe im Leben immer das Licht gefunden. Doch in den dunkelsten Tagen konnte ich es nicht.<br>Erinnerungen und Hoffnung sind alles, was mir bleibt. Vorerst…", "odin.title": "Ein Atemzug", "odin.desc": "Der Krieg kam unter fremden Bannern in mein Zuhause. Zwischen Leben und Tod liegt nur ein Atemzug – und ich entscheide, wer ich werde.", "za.title": "Jenseits der Grenze", "za.desc": "Auf der einen Seite Sonne und Zuhause, auf der anderen ein dunkler Wald, in dessen Schloss ein Ungeheuer wartet. Ein Schritt über die Grenze – und es gibt kein Zurück.", "fav.add": "Zu Favoriten hinzufügen", "fav.remove": "Aus Favoriten entfernen", "favorites.empty": "Hier erscheinen deine Lieblingsgeschichten.<br>Tippe bei einer Geschichte auf ♡, um sie hinzuzufügen.", "scenes.empty": "Hier werden die Szenen gesammelt, die du gesehen hast.", "features.empty": "Zusätzliche Funktionen des Projekts.", "profile.changePhoto": "Foto ändern", "profile.defaultName": "Reisende", "profile.defaultStatus": "Erzähl etwas über dich", "profile.name": "Name", "profile.namePh": "Wie heißt du?", "profile.status": "Status", "profile.statusPh": "Zum Beispiel: auf der Suche nach meiner Geschichte", "profile.save": "Speichern", "profile.adjust": "Fotoausschnitt anpassen", "profile.remove": "Foto entfernen", "profile.saved": "Profil gespeichert ✦", "profile.saveError": "Speichern fehlgeschlagen: Das Foto ist zu groß oder der Browser blockiert den Speicher.", "crop.title": "Fotoausschnitt", "crop.zoom": "Zoom", "crop.hint": "Ziehe das Foto, um den Ausschnitt zu wählen. Zoome mit dem Regler oder dem Mausrad.", "crop.ok": "Fertig", "crop.cancel": "Abbrechen", "settings.title": "Einstellungen", "settings.language": "Sprache", "settings.music": "Musik der Website", "settings.musicSub": "Leise Hintergrundmelodie", "settings.volume": "Lautstärke", "intro.tap": "tippe auf den Bildschirm", "intro.enter": "Website betreten", "game.close": "Spiel schließen", "tma.title": "Dunkelheit des Herzens", "tma.desc": "Man zwang mich, meine geliebte Einöde zu verlassen und an den Hof zu kommen. Jetzt bin ich euer größtes Problem. Und meins ist ein heuchlerischer Prinz.", "feniks.title": "Phönix", "feniks.desc": "Bei Tag die begehrteste Tänzerin der Hauptstadt, bei Nacht ein Schatten mit Krallen. Der Kampf für Gerechtigkeit ist hart. Mit jedem Aufgang von Sonne und Mond sterbe ich und werde neu geboren.", "obuzdat.title": "Die Erinnerung zähmen", "obuzdat.desc": "Von einem Moment auf den anderen lässt mich mein Gedächtnis im Stich und teilt mich in Stücke. Um mich nicht zu verlieren, muss ich die Erinnerung zweier Leben zähmen.", "nit.title": "Der Faden zweier Welten", "nit.desc": "Einmal schenkte man mir einen Augenblick Freiheit, und ich verlor ihn in der Zukunft. Doch ich habe auch vieles gewonnen…<br>Er ist die Quelle meiner Probleme, doch er taucht genau im richtigen Moment auf."}, "ko": {"site.title": "평행 세계 이야기", "site.subtitle": "모든 이야기가 현실이 되는 곳", "nav.stories": "이야기", "nav.profile": "프로필", "nav.scenes": "컷신", "nav.features": "기능", "nav.favorites": "즐겨찾기", "card.play": "플레이", "card.soon": "곧 공개", "card.soonBadge": "곧 공개 예정", "aliy.title": "붉은 새벽", "aliy.sub": "49일", "aliy.desc": "평생을 황금 새장 속에서 살아왔다. 이제 그 새장을 부술 때다! 하지만 앞에는 수많은 비밀과 발견이 기다리고 있다. 첫 번째 규칙 — 살아남을 것.", "ten.title": "희망의 그림자", "ten.desc": "나는 언제나 삶에서 빛을 찾아냈다. 하지만 가장 어두운 날들엔 그럴 수 없었다.<br>추억과 희망 — 그것이 내가 가진 전부다. 아직은…", "odin.title": "한 번의 숨", "odin.desc": "전쟁이 낯선 깃발을 앞세워 나의 집에 찾아왔다. 삶과 죽음 사이엔 단 한 번의 숨뿐 — 내가 누가 될지는 내가 정한다.", "za.title": "경계 너머", "za.desc": "한쪽엔 햇살과 고향이, 다른 쪽엔 괴물이 성에서 기다리는 어두운 숲이 있다. 경계를 한 걸음 넘으면, 돌아갈 길은 없다.", "fav.add": "즐겨찾기에 추가", "fav.remove": "즐겨찾기에서 삭제", "favorites.empty": "좋아하는 이야기가 여기에 표시됩니다.<br>이야기 카드의 ♡를 눌러 추가하세요.", "scenes.empty": "시청한 컷신이 여기에 모입니다.", "features.empty": "프로젝트의 추가 기능.", "profile.changePhoto": "사진 변경", "profile.defaultName": "여행자", "profile.defaultStatus": "자기소개를 해 주세요", "profile.name": "이름", "profile.namePh": "이름이 무엇인가요?", "profile.status": "상태 메시지", "profile.statusPh": "예: 나만의 이야기를 찾는 중", "profile.save": "저장", "profile.adjust": "사진 영역 조정", "profile.remove": "사진 삭제", "profile.saved": "프로필이 저장되었습니다 ✦", "profile.saveError": "저장할 수 없습니다: 사진이 너무 크거나 브라우저가 저장을 차단했습니다.", "crop.title": "사진 영역", "crop.zoom": "확대", "crop.hint": "사진을 드래그해 영역을 선택하세요. 슬라이더나 마우스 휠로 확대할 수 있습니다.", "crop.ok": "완료", "crop.cancel": "취소", "settings.title": "설정", "settings.language": "언어", "settings.music": "사이트 음악", "settings.musicSub": "잔잔한 배경 음악", "settings.volume": "볼륨", "intro.tap": "화면을 터치하세요", "intro.enter": "입장하기", "game.close": "게임 닫기", "tma.title": "마음의 어둠", "tma.desc": "사랑하는 시골을 떠나 억지로 궁에 오게 되었다. 이제 나는 당신들의 가장 큰 골칫거리다. 그리고 내 골칫거리는 위선적인 왕자다.", "feniks.title": "피닉스", "feniks.desc": "낮에는 수도에서 가장 사랑받는 무희, 밤에는 발톱을 가진 그림자. 정의를 위한 싸움은 쉽지 않다. 해와 달이 뜰 때마다 나는 죽고 다시 태어난다.", "obuzdat.title": "기억을 길들이다", "obuzdat.desc": "어느 순간, 내 기억이 나를 배신하고 나를 조각조각 나눈다. 나 자신을 잃지 않으려면 두 삶의 기억을 길들여야 한다.", "nit.title": "두 세계의 실", "nit.desc": "한때 내게 자유의 순간이 주어졌고, 나는 그것을 미래에서 잃어버렸다. 하지만 얻은 것도 많았다…<br>그는 내 모든 문제의 근원이지만, 꼭 필요한 순간에 나타난다."}};
+var LANGS=['ru','en','es','de','ko'];
+var LANG=(function(){
+  var s=null; try{s=localStorage.getItem('ipm_lang')}catch(e){}
+  if(LANGS.indexOf(s)>=0) return s;
+  var b=(navigator.language||'ru').slice(0,2).toLowerCase();
+  return LANGS.indexOf(b)>=0?b:'ru';
+})();
+function t(key){return (I18N[LANG]&&I18N[LANG][key])||I18N.ru[key]||key}
+function applyLang(lang){
+  if(lang){LANG=lang;try{localStorage.setItem('ipm_lang',lang)}catch(e){}}
+  document.documentElement.lang=LANG;
+  document.title=t('site.title');
+  document.querySelectorAll('[data-i18n]').forEach(function(el){el.textContent=t(el.dataset.i18n)});
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el){el.innerHTML=t(el.dataset.i18nHtml)});
+  document.querySelectorAll('[data-i18n-attr]').forEach(function(el){
+    el.dataset.i18nAttr.split(';').forEach(function(pair){var p=pair.split(':');el.setAttribute(p[0],t(p[1]))});
+  });
+  // заставки на выбранном языке (с запасной русской)
+  document.querySelectorAll('.cover[data-cover]').forEach(function(el){
+    var f=el.dataset.cover;
+    el.style.backgroundImage=LANG==='ru'?"url('covers/"+f+"')":"url('covers/"+LANG+"/"+f+"'), url('covers/"+f+"')";
+  });
+  var sel=document.getElementById('langSelect'); if(sel) sel.value=LANG;
+  document.dispatchEvent(new Event('langchange'));
+}
+function showView(id){
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.view===id));
+  document.getElementById('gearBtn').classList.toggle('active',id==='settings');
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+document.getElementById('gearBtn').onclick=()=>showView('settings');
+
+/* ================= ИЗБРАННОЕ =================
+   Хранится в браузере (localStorage). */
+(function(){
+  var KEY='ipm_favorites', favs=[];
+  try{favs=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
+  function store(){try{localStorage.setItem(KEY,JSON.stringify(favs))}catch(e){}}
+  function render(){
+    document.querySelectorAll('.card[data-id]').forEach(function(c){
+      var on=favs.indexOf(c.dataset.id)>=0, h=c.querySelector('.heart');
+      h.classList.toggle('on',on);
+      h.title=h.ariaLabel=on?t('fav.remove'):t('fav.add');
+    });
+    var box=document.getElementById('favCards'); box.innerHTML='';
+    document.querySelectorAll('#stories .card[data-id]').forEach(function(c){
+      if(favs.indexOf(c.dataset.id)>=0) box.appendChild(c.cloneNode(true));
+    });
+    document.getElementById('favEmpty').style.display=box.children.length?'none':'';
+  }
+  document.addEventListener('click',function(e){
+    var h=e.target.closest('.heart'); if(!h) return;
+    var id=h.closest('.card').dataset.id, i=favs.indexOf(id);
+    if(i>=0) favs.splice(i,1); else favs.push(id);
+    store(); render();
+    document.querySelectorAll('.card[data-id="'+id+'"] .heart').forEach(function(x){x.classList.remove('pop');void x.offsetWidth;x.classList.add('pop')});
+  });
+  document.addEventListener('langchange',render);
+  render();
+})();
+// Игра загружается только при открытии окна и полностью выгружается при закрытии
+function openGame(){
+  if(window.siteMusic)siteMusic.duck(true);
+  var m=document.getElementById('modal'), f=document.getElementById('gameframe');
+  if(!f.getAttribute('src'))f.src='game/index.html';
+  m.classList.add('open');
+  // настоящий полноэкранный режим (без панелей браузера), где он поддерживается
+  var rf=m.requestFullscreen||m.webkitRequestFullscreen;
+  if(rf){try{var r=rf.call(m);if(r&&r.catch)r.catch(function(){})}catch(e){}}
+}
+function closeGame(){
+  if(window.siteMusic)siteMusic.duck(false);
+  var fe=document.fullscreenElement||document.webkitFullscreenElement;
+  if(fe){var ex=document.exitFullscreen||document.webkitExitFullscreen;try{var r=ex.call(document);if(r&&r.catch)r.catch(function(){})}catch(e){}}
+  document.getElementById('modal').classList.remove('open');
+  document.getElementById('gameframe').removeAttribute('src');
+}
+
+/* ================= ПРОФИЛЬ =================
+   Хранится в браузере игрока (localStorage) — на этом устройстве и в этом браузере.
+   photo     — готовая круглая аватарка 320×320
+   photoOrig — уменьшенный оригинал, чтобы можно было заново выбрать область
+   crop      — выбранная область {zoom, x, y} */
+(function(){
+  var KEY='ipm_profile';
+  var profile={name:'',status:'',photo:'',photoOrig:'',crop:null};
+  try{Object.assign(profile,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
+
+  var $=function(id){return document.getElementById(id)};
+  function render(){
+    $('pName').textContent=profile.name||t('profile.defaultName');
+    $('pStatus').textContent=profile.status||t('profile.defaultStatus');
+    $('avatar').style.backgroundImage=profile.photo?'url('+profile.photo+')':'';
+    $('avatarLetter').textContent=profile.photo?'':(profile.name?profile.name.trim()[0].toUpperCase():'✦');
+    $('nameInput').value=profile.name; $('statusInput').value=profile.status;
+    $('removePhoto').style.display=profile.photo?'':'none';
+    $('adjustPhoto').style.display=profile.photoOrig?'':'none';
+  }
+  function save(){
+    try{localStorage.setItem(KEY,JSON.stringify(profile));}
+    catch(e){alert(t('profile.saveError'));return false}
+    var m=$('savedMsg'); m.classList.add('show'); setTimeout(function(){m.classList.remove('show')},1800);
+    return true;
+  }
+  $('pForm').onsubmit=function(e){
+    e.preventDefault();
+    profile.name=$('nameInput').value.trim();
+    profile.status=$('statusInput').value.trim();
+    save(); render();
+  };
+
+  /* ---------- Выбор области ---------- */
+  var S=600, cv=$('cropCanvas'), ctx=cv.getContext('2d');
+  var img=null, imgSrc='', zoom=1, cx=S/2, cy=S/2, base=1;
+  function scale(){return base*zoom}
+  function clamp(){
+    var hw=img.width*scale()/2, hh=img.height*scale()/2;
+    cx=Math.min(hw,Math.max(S-hw,cx)); cy=Math.min(hh,Math.max(S-hh,cy));
+  }
+  function draw(c,size){
+    var k=size/S, sc=scale()*k;
+    c.clearRect(0,0,size,size);
+    c.drawImage(img,cx*k-img.width*sc/2,cy*k-img.height*sc/2,img.width*sc,img.height*sc);
+  }
+  function redraw(){clamp();draw(ctx,S)}
+  function openCrop(src,crop){
+    img=new Image();
+    img.onload=function(){
+      imgSrc=src; base=Math.max(S/img.width,S/img.height);
+      zoom=crop?crop.zoom:1; cx=crop?crop.x*S:S/2; cy=crop?crop.y*S:S/2;
+      $('cropZoom').value=zoom; redraw(); $('cropModal').classList.add('open');
+    };
+    img.src=src;
+  }
+  function setZoom(z,px,py){
+    z=Math.min(4,Math.max(1,z));
+    if(px===undefined){px=S/2;py=S/2}
+    // приближаем к точке под курсором
+    cx=px-(px-cx)*z/zoom; cy=py-(py-cy)*z/zoom; zoom=z;
+    $('cropZoom').value=z; redraw();
+  }
+  $('cropZoom').oninput=function(){setZoom(parseFloat(this.value))};
+  $('cropArea').addEventListener('wheel',function(e){
+    e.preventDefault(); var r=cv.getBoundingClientRect(), k=S/r.width;
+    setZoom(zoom*(e.deltaY<0?1.08:1/1.08),(e.clientX-r.left)*k,(e.clientY-r.top)*k);
+  },{passive:false});
+  // перетаскивание (мышь и палец), щипок двумя пальцами — приближение
+  var pts={}, lastDist=0;
+  $('cropArea').addEventListener('pointerdown',function(e){this.setPointerCapture(e.pointerId);pts[e.pointerId]={x:e.clientX,y:e.clientY}});
+  $('cropArea').addEventListener('pointermove',function(e){
+    if(!pts[e.pointerId]) return;
+    var r=cv.getBoundingClientRect(), k=S/r.width, ids=Object.keys(pts);
+    if(ids.length===1){
+      cx+=(e.clientX-pts[e.pointerId].x)*k; cy+=(e.clientY-pts[e.pointerId].y)*k; redraw();
+    }else if(ids.length===2){
+      pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      var a=pts[ids[0]], b=pts[ids[1]], d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(lastDist) setZoom(zoom*d/lastDist,((a.x+b.x)/2-r.left)*k,((a.y+b.y)/2-r.top)*k);
+      lastDist=d; return;
+    }
+    pts[e.pointerId]={x:e.clientX,y:e.clientY};
+  });
+  ['pointerup','pointercancel'].forEach(function(t){$('cropArea').addEventListener(t,function(e){delete pts[e.pointerId];lastDist=0})});
+
+  $('cropOk').onclick=function(){
+    var out=document.createElement('canvas'); out.width=out.height=480;
+    draw(out.getContext('2d'),480);
+    profile.photo=out.toDataURL('image/jpeg',0.88);
+    profile.photoOrig=imgSrc;
+    profile.crop={zoom:zoom,x:cx/S,y:cy/S};
+    $('cropModal').classList.remove('open');
+    save(); render();
+  };
+  $('cropCancel').onclick=function(){$('cropModal').classList.remove('open')};
+
+  /* ---------- Загрузка фото ---------- */
+  $('avatar').onclick=function(){$('photoInput').click()};
+  $('adjustPhoto').onclick=function(){if(profile.photoOrig) openCrop(profile.photoOrig,profile.crop)};
+  $('photoInput').onchange=function(){
+    var file=this.files[0]; if(!file) return;
+    var im=new Image(), url=URL.createObjectURL(file);
+    im.onload=function(){
+      // уменьшаем оригинал до 1024px по длинной стороне, чтобы он помещался в хранилище
+      var k=Math.min(1,1024/Math.max(im.width,im.height)), c=document.createElement('canvas');
+      c.width=Math.round(im.width*k); c.height=Math.round(im.height*k);
+      c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+      URL.revokeObjectURL(url);
+      openCrop(c.toDataURL('image/jpeg',0.85),null);
+    };
+    im.src=url; this.value='';
+  };
+  $('removePhoto').onclick=function(){profile.photo='';profile.photoOrig='';profile.crop=null;save();render()};
+  document.addEventListener('langchange',render);
+  render();
+})();
+
+/* ================= МУЗЫКА САЙТА =================
+   Плавно появляется из тишины при открытии сайта. Браузеры не дают включать звук
+   до первого действия человека, поэтому если автозапуск запрещён —
+   музыка начнётся с первого клика / касания / нажатия клавиши.
+   Настройки (вкл/выкл, громкость) сохраняются в браузере. */
+window.siteMusic=(function(){
+  var KEY='ipm_music', a=document.getElementById('siteMusic');
+  var cfg={on:true,vol:30};
+  try{Object.assign(cfg,JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){}
+  var level=0, target=0, ducked=false, started=false, raf=0;
+
+  function store(){try{localStorage.setItem(KEY,JSON.stringify(cfg))}catch(e){}}
+  function want(){return cfg.on&&!ducked?cfg.vol/100:0}
+  // плавное изменение громкости до v ровно за fadeSec секунд
+  function fadeTo(v,fadeSec){
+    target=v; cancelAnimationFrame(raf);
+    var last=performance.now(), span=Math.max(Math.abs(target-level),.01);
+    (function step(now){
+      var d=(now-last)/1000/fadeSec*span; last=now;
+      level=level<target?Math.min(target,level+d):Math.max(target,level-d);
+      a.volume=Math.max(0,Math.min(1,level));
+      if(level===0&&target===0){a.pause();return}
+      if(level!==target) raf=requestAnimationFrame(step);
+    })(last);
+  }
+  function start(fadeSec){
+    if(!want()) return;
+    a.volume=level;
+    var p=a.play();
+    if(p&&p.catch) p.then(function(){started=true;fadeTo(want(),fadeSec)}).catch(function(){});
+    else{started=true;fadeTo(want(),fadeSec)}
+  }
+
+  // ---------- Настройки ----------
+  var on=document.getElementById('musicOn'), vol=document.getElementById('musicVol'), out=document.getElementById('volOut'), row=document.getElementById('volRow');
+  function ui(){on.checked=cfg.on; vol.value=cfg.vol; out.textContent=cfg.vol+'%'; row.classList.toggle('off',!cfg.on)}
+  on.onchange=function(){cfg.on=on.checked;store();ui(); if(cfg.on){if(a.paused)start(1.5);else fadeTo(want(),1.5)}else fadeTo(0,1)};
+  vol.oninput=function(){cfg.vol=+vol.value;out.textContent=cfg.vol+'%';store(); if(!a.paused){target=level=want();a.volume=level}};
+  ui();
+
+  // пока открыта игра — музыка сайта затихает
+  function duck(d){ducked=d; if(d) fadeTo(0,1); else if(cfg.on) start(2)}
+
+  // при закрытии вкладки/сворачивании — тоже затихаем
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){if(!a.paused)fadeTo(0,.5)} else if(started&&!ducked&&cfg.on) start(1.5);
+  });
+
+  // Заставка: клик / касание / любая клавиша — сайт появляется, музыка плавно включается
+  var intro=document.getElementById('intro'), entered=false;
+  function enter(){
+    if(entered) return; entered=true;
+    start(4);
+    document.body.classList.remove('splash');
+    intro.classList.add('hide');
+    setTimeout(function(){intro.style.display='none'},1300);
+  }
+  intro.addEventListener('click',enter);
+  document.addEventListener('keydown',function(){if(!entered)enter()});
+  return {duck:duck};
+})();
+
+/* ================= ЗВЁЗДЫ =================
+   Много мерцающих звёзд, яркие звёзды со вспышками-лучиками,
+   медленный дрейф и падающие звёзды. */
+(function(){
+  var cv=document.getElementById('starfield'), ctx=cv.getContext('2d');
+  var stars=[], meteors=[], w, h, dpr;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var COLORS=['255,255,255','255,255,255','240,200,235','210,215,255','255,230,200'];
+  function resize(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    w=cv.clientWidth; h=cv.clientHeight;
+    cv.width=w*dpr; cv.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+    var n=Math.round(w*h/4000); stars=[];
+    for(var i=0;i<n;i++){
+      var big=Math.random()<.08;
+      stars.push({x:Math.random()*w,y:Math.random()*h,
+        r:big?Math.random()*1+1.3:Math.random()*1.1+.3,
+        a:Math.random()*Math.PI*2,
+        sp:Math.random()*3.5+.8,          // скорость мерцания
+        v:Math.random()*.05+.008,         // дрейф
+        c:COLORS[Math.floor(Math.random()*COLORS.length)],
+        big:big, flare:0, next:Math.random()*600});
+    }
+  }
+  function meteor(){
+    meteors.push({x:Math.random()*w*.8+w*.1,y:Math.random()*h*.35,vx:-(5+Math.random()*4),vy:2.5+Math.random()*2,life:1});
+  }
+  function glint(x,y,len,o,c){
+    var g=ctx.createLinearGradient(x-len,y,x+len,y);
+    g.addColorStop(0,'rgba('+c+',0)');g.addColorStop(.5,'rgba('+c+','+o+')');g.addColorStop(1,'rgba('+c+',0)');
+    ctx.fillStyle=g; ctx.fillRect(x-len,y-.6,len*2,1.2);
+    g=ctx.createLinearGradient(x,y-len,x,y+len);
+    g.addColorStop(0,'rgba('+c+',0)');g.addColorStop(.5,'rgba('+c+','+o+')');g.addColorStop(1,'rgba('+c+',0)');
+    ctx.fillStyle=g; ctx.fillRect(x-.6,y-len,1.2,len*2);
+  }
+  var last=performance.now();
+  function frame(now){
+    var dt=Math.min((now-last)/16.7,3); last=now;
+    ctx.clearRect(0,0,w,h);
+    for(var i=0;i<stars.length;i++){
+      var s=stars[i];
+      s.a+=.025*s.sp*dt; s.y-=s.v*dt; if(s.y<-2){s.y=h+2;s.x=Math.random()*w}
+      // глубокое мерцание: от почти невидимой до яркой
+      var tw=Math.sin(s.a)*.5+.5, o=.08+.92*tw*tw;
+      // время от времени звезда вспыхивает
+      s.next-=dt;
+      if(s.next<=0){s.flare=1; s.next=(s.big?200:900)+Math.random()*(s.big?500:2500)}
+      if(s.flare>0){s.flare-=.025*dt; if(s.flare<0)s.flare=0}
+      var f=Math.sin(Math.max(0,s.flare)*Math.PI);
+      o=Math.min(1,o+f);
+      var r=s.r*(1+f*.8);
+      if(s.big||f>.05){ctx.shadowBlur=6+f*10;ctx.shadowColor='rgba('+s.c+',.9)'}else ctx.shadowBlur=0;
+      ctx.beginPath(); ctx.arc(s.x,s.y,r,0,6.283);
+      ctx.fillStyle='rgba('+s.c+','+o+')'; ctx.fill();
+      if(f>.05||(s.big&&tw>.85)){ctx.shadowBlur=0; glint(s.x,s.y,(s.big?9:6)+f*12,Math.max(f,s.big?(tw-.85)*4:0)*.9,s.c)}
+    }
+    ctx.shadowBlur=0;
+    if(Math.random()<.005*dt && meteors.length<2) meteor();
+    for(var j=meteors.length-1;j>=0;j--){
+      var m=meteors[j]; m.x+=m.vx*dt; m.y+=m.vy*dt; m.life-=.012*dt;
+      if(m.life<=0){meteors.splice(j,1);continue}
+      var g=ctx.createLinearGradient(m.x,m.y,m.x-m.vx*14,m.y-m.vy*14);
+      g.addColorStop(0,'rgba(255,255,255,'+m.life+')'); g.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.strokeStyle=g; ctx.lineWidth=1.6; ctx.beginPath(); ctx.moveTo(m.x,m.y); ctx.lineTo(m.x-m.vx*14,m.y-m.vy*14); ctx.stroke();
+    }
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize',resize); resize(); requestAnimationFrame(frame);
+})();
+
+/* применяем язык после того, как всё настроено */
+document.getElementById('langSelect').onchange=function(){applyLang(this.value)};
+applyLang();
+</script>
+</body></html>

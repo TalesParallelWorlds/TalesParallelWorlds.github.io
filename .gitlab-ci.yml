@@ -1,0 +1,16 @@
+# Публикация сайта на GitLab Pages.
+# При каждой отправке изменений в main GitLab копирует файлы в папку public и выкладывает сайт.
+image: alpine:latest
+
+pages:
+  stage: deploy
+  script:
+    - mkdir .public
+    - cp -r ./* .public
+    - rm -rf .public/server.ps1 ".public/Запустить сайт.bat"
+    - mv .public public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

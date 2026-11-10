@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ShadowOfHope</title>
+<style>
+@font-face{font-family:'PW Title';font-style:italic;font-weight:400;font-display:swap;src:url('TemplateData/PlayfairDisplay-Italic-cyrillic.woff2') format('woff2');unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'PW Title';font-style:italic;font-weight:400;font-display:swap;src:url('TemplateData/PlayfairDisplay-Italic-latin.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#07050b}
+@supports(height:100dvh){html,body{height:100dvh}}
+#unity-canvas{position:fixed;inset:0;width:100%;height:100%;display:block;background:#07050b;outline:none}
+
+/* ---------- Заставка-загрузка ---------- */
+#loader{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  padding:0 24px calc(9vh + env(safe-area-inset-bottom));color:#f7f1f6;font-family:Georgia,serif;
+  background:#07050b;overflow:hidden;transition:opacity 1s ease}
+#loader .bg{position:absolute;inset:0;background:url('TemplateData/cover.jpg') center/cover no-repeat;animation:slowzoom 18s ease-out both}
+#loader:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(7,5,11,0) 35%,rgba(7,5,11,.55) 65%,rgba(7,5,11,.92) 100%)}
+@keyframes slowzoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+#loader > :not(.bg){position:relative;z-index:2}
+#loader.hide{opacity:0;pointer-events:none}
+.ld-title{font-family:'PW Title',Georgia,serif;font-style:italic;font-size:clamp(34px,6vw,72px);line-height:1.1;margin:0;text-shadow:0 2px 24px rgba(0,0,0,.6);animation:rise 1.4s ease both}
+.ld-sub{font-family:'PW Title',Georgia,serif;font-style:italic;font-size:clamp(16px,2.2vw,24px);opacity:.8;margin-top:6px;animation:rise 1.4s .2s ease both}
+.ld-bar{width:min(420px,78vw);height:3px;margin-top:34px;border-radius:3px;background:rgba(255,255,255,.18);overflow:hidden;animation:rise 1.4s .4s ease both}
+.ld-fill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,#c9a3d6,#ffe1ef);box-shadow:0 0 12px rgba(255,210,235,.8);transition:width .35s ease}
+.ld-text{margin-top:12px;font:500 11px/1 -apple-system,Segoe UI,Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;opacity:.7;animation:rise 1.4s .5s ease both}
+.ld-error{display:none;max-width:520px;margin-top:18px;font:14px/1.5 -apple-system,Segoe UI,Arial,sans-serif;background:rgba(120,20,40,.75);padding:12px 16px;border-radius:12px;text-align:center}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* на широком экране название уже видно на обложке — свой текст не дублируем */
+@media (min-aspect-ratio:4/3){.ld-title,.ld-sub{display:none}}
+#unity-warning{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:20;font:13px Arial,sans-serif;display:none}
+</style>
+</head>
+<body>
+<canvas id="unity-canvas" tabindex="-1"></canvas>
+
+<div id="loader">
+  <div class="bg"></div>
+  <h1 class="ld-title">Тень надежды</h1>
+  <div class="ld-bar"><div class="ld-fill" id="ldFill"></div></div>
+  <div class="ld-text" id="ldText">Загрузка 0%</div>
+  <div class="ld-error" id="ldError"></div>
+</div>
+<div id="unity-warning"></div>
+
+<script>
+  var canvas = document.querySelector("#unity-canvas");
+
+  function unityShowBanner(msg, type) {
+    if (type == 'error') { showError(msg); return; }
+    var w = document.querySelector("#unity-warning");
+    var div = document.createElement('div');
+    div.innerHTML = msg;
+    div.style = 'background:rgba(255,220,120,.95);color:#222;padding:8px 12px;border-radius:8px;margin-top:6px';
+    w.appendChild(div); w.style.display = 'block';
+    setTimeout(function(){ w.removeChild(div); if (!w.children.length) w.style.display = 'none'; }, 5000);
+  }
+  function showError(msg) {
+    var e = document.getElementById('ldError');
+    e.innerHTML = 'Не удалось загрузить игру.<br><small>' + msg + '</small>';
+    e.style.display = 'block';
+    document.getElementById('loader').classList.remove('hide');
+  }
+
+  var buildUrl = "Build";
+  var loaderUrl = buildUrl + "/ten-nadezhdy.loader.js";
+  var config = {
+    arguments: [],
+    dataUrl: buildUrl + "/ten-nadezhdy.data.unityweb",
+    frameworkUrl: buildUrl + "/ten-nadezhdy.framework.js.unityweb",
+    codeUrl: buildUrl + "/ten-nadezhdy.wasm.unityweb",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName: "DefaultCompany",
+    productName: "ShadowOfHope",
+    productVersion: "1.0",
+    showBanner: unityShowBanner,
+  };
+
+  // На телефонах ограничиваем чёткость, чтобы игра шла плавно
+  if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+    config.devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+  }
+
+  // ---------- Заставка-загрузка ----------
+  var fill = document.getElementById('ldFill'), text = document.getElementById('ldText');
+  var shownAt = Date.now();
+  function setProgress(p) {
+    var pct = Math.round(p * 100);
+    fill.style.width = pct + '%';
+    text.textContent = pct < 100 ? 'Загрузка ' + pct + '%' : 'Почти готово…';
+  }
+  function hideLoader() {
+    // заставка видна минимум 1,5 секунды, чтобы не мелькала
+    var wait = Math.max(0, 1500 - (Date.now() - shownAt));
+    setTimeout(function () {
+      text.textContent = 'Готово';
+      document.getElementById('loader').classList.add('hide');
+      canvas.focus();
+    }, wait);
+  }
+
+  var script = document.createElement("script");
+  script.src = loaderUrl;
+  script.onload = function () {
+    createUnityInstance(canvas, config, setProgress)
+      .then(function (unityInstance) { window.unityInstance = unityInstance; setProgress(1); hideLoader(); })
+      .catch(function (message) { showError(message); });
+  };
+  script.onerror = function () { showError('Файлы игры не найдены (' + loaderUrl + ').'); };
+  document.body.appendChild(script);
+</script>
+</body>
+</html>

@@ -29,6 +29,10 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 /* на широком экране название уже видно на обложке — свой текст не дублируем */
 @media (min-aspect-ratio:4/3){.ld-title,.ld-sub{display:none}}
+/* мобильная версия — только вертикально: если телефон повернули, просим вернуть его обратно */
+#rotate{display:none;position:fixed;inset:0;z-index:50;background:#07050b;color:#f3e6f0;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:18px;font:500 16px/1.4 -apple-system,Segoe UI,Arial,sans-serif;padding:24px}
+#rotate .ph{width:46px;height:78px;border:3px solid currentColor;border-radius:9px;opacity:.85}
+@media (orientation:landscape) and (pointer:coarse) and (max-height:600px){#rotate{display:flex}}
 #unity-warning{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:20;font:13px Arial,sans-serif;display:none}
 </style>
 </head>
@@ -43,6 +47,7 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   <div class="ld-error" id="ldError"></div>
 </div>
 <div id="unity-warning"></div>
+<div id="rotate"><div class="ph"></div><div>Поверните телефон вертикально</div></div>
 
 <script>
   var canvas = document.querySelector("#unity-canvas");
@@ -109,6 +114,10 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   };
   script.onerror = function () { showError('Файлы игры не найдены (' + loaderUrl + ').'); };
   document.body.appendChild(script);
+</script>
+<script>
+  // на телефоне держим экран вертикальным (где браузер это позволяет)
+  try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('portrait').catch(function(){}); } catch (e) {}
 </script>
 </body>
 </html>

@@ -88,6 +88,16 @@ nav button.active,nav button:hover{opacity:1;background:rgba(255,255,255,.09)}
 .p-form label{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6}
 .p-form input[type=text]{width:100%;margin-top:6px;padding:12px 15px;border-radius:13px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.28);color:#f7f1f6;font:14px Montserrat;outline:none;transition:.25s}
 .p-form input[type=text]:focus{border-color:rgba(225,181,231,.6)}
+.p-form input[type=password]{width:100%;margin-top:6px;padding:12px 15px;border-radius:13px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.28);color:#f7f1f6;font:14px Montserrat;outline:none;transition:.25s;box-sizing:border-box}
+.p-form input[type=password]:focus{border-color:rgba(225,181,231,.6)}
+/* ---------- Аккаунт ---------- */
+.account{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);text-align:center}
+.acc-title{font-family:"Cormorant Garamond";font-size:26px;margin-bottom:4px}
+.acc-sub{font-size:13px;opacity:.8;margin-bottom:6px;line-height:1.5}
+.acc-who{font-size:15px;margin:6px 0 2px}
+.acc-sync{font-size:12px;opacity:.7;min-height:16px;margin-bottom:4px}
+.acc-msg{font-size:13px;min-height:18px;margin-top:10px;color:#ffc4cf}
+.acc-msg.ok{color:#d9f5d9}
 .p-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
 .ghost{border:1px solid rgba(255,255,255,.2);border-radius:99px;padding:11px 20px;background:transparent;color:#f7f1f6;cursor:pointer;font:500 13px Montserrat}
 .saved{font-size:12px;opacity:0;transition:.4s;margin-top:10px;color:#ead9ed}.saved.show{opacity:.8}
@@ -293,6 +303,13 @@ html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
 .v-close{position:absolute;z-index:2;top:calc(12px + env(safe-area-inset-top));right:calc(12px + env(safe-area-inset-right));width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(10,7,15,.55);backdrop-filter:blur(8px);color:#fff;font-size:26px;line-height:1;display:grid;place-items:center;cursor:pointer;padding:0}
 .v-hint{position:absolute;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));transform:translateX(-50%);padding:8px 14px;border-radius:99px;background:rgba(10,7,15,.55);font-size:12px;opacity:.85;white-space:nowrap;pointer-events:none;transition:opacity .6s}
 .v-hint.gone{opacity:0}
+/* статы истории поверх заставки (второй клик по картинке) */
+.v-stats{position:absolute;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:10px;box-sizing:border-box;pointer-events:none;opacity:0;transform:translateY(-10px);transition:opacity .35s,transform .35s}
+.v-stats.on{opacity:1;transform:none}
+.v-stat{display:flex;align-items:center;gap:7px;padding:5px 14px 5px 5px;border-radius:99px;background:rgba(10,7,15,.62);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:14px;line-height:1.1;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.viewer .v-stat img{position:static;transform:none;width:38px;height:38px;cursor:inherit}
+.v-stat b{font-size:17px;margin-left:2px}
+@media(max-width:600px){.v-stats{gap:6px;padding:8px}.v-stat{font-size:12px;padding:4px 10px 4px 4px}.viewer .v-stat img{width:30px;height:30px}.v-stat b{font-size:15px}}
 @media(max-width:600px){.filter-panel{padding:14px}.chip{padding:7px 12px;font-size:12px}.stories-head .section-title{margin-bottom:12px}}
 
 /* 3–4 истории в ряду на компьютере — страница шире, чтобы обложки и текст не мельчили */
@@ -328,11 +345,40 @@ html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
   html.mdesign .card>.play{margin-bottom:12px;margin-top:auto;padding:11px;font-size:14px}
   html.mdesign .card .heart{top:10px;left:10px}
 }
+
+/* ================= НОВОСТИ ================= */
+.news-btn{position:absolute;z-index:6;top:18px;left:18px;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(18,13,25,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:#f7f1f6;cursor:pointer;display:grid;place-items:center;opacity:.75;transition:opacity .3s;padding:0;font:700 24px/1 "Cormorant Garamond",Georgia,serif}
+.news-btn:hover,.news-btn.open{opacity:1}
+.news-btn .dot{position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:#ff7aa2;box-shadow:0 0 8px #ff7aa2;display:none}
+.news-btn.unread{opacity:1}
+.news-btn.unread .dot{display:block}
+.news-btn.unread{animation:newsShake 3.2s ease-in-out infinite}
+@keyframes newsShake{0%,70%,100%{transform:rotate(0)}73%{transform:rotate(-14deg)}76%{transform:rotate(12deg)}79%{transform:rotate(-10deg)}82%{transform:rotate(8deg)}85%{transform:rotate(-4deg)}88%{transform:rotate(0)}}
+@media(prefers-reduced-motion:reduce){.news-btn.unread{animation:none}}
+.splash .news-btn{opacity:0;pointer-events:none}
+.news-list{position:absolute;z-index:7;top:72px;left:18px;width:min(340px,calc(100vw - 36px));max-height:min(70vh,560px);overflow:auto;padding:10px;border-radius:18px;border:1px solid rgba(255,255,255,.14);background:rgba(18,13,25,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 18px 50px rgba(0,0,0,.35);opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .3s,transform .3s;text-align:left}
+.news-list.on{opacity:1;transform:none;pointer-events:auto}
+.news-list h4{margin:4px 8px 10px;font:600 13px Montserrat;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.news-item{display:flex;gap:12px;align-items:center;width:100%;padding:8px;border:0;border-radius:12px;background:transparent;color:#f7f1f6;cursor:pointer;text-align:left;font:inherit;transition:background .2s}
+.news-item:hover{background:rgba(255,255,255,.08)}
+.news-item img{width:86px;height:48px;object-fit:cover;border-radius:8px;flex:none}
+.news-item b{display:block;font:600 14px/1.3 Montserrat}
+.news-item small{opacity:.6;font-size:12px}
+.news-item.new b::after{content:"";display:inline-block;width:7px;height:7px;margin-left:6px;border-radius:50%;background:#ff7aa2;vertical-align:middle}
+.news-view{position:fixed;inset:0;z-index:48;display:grid;place-items:center;background:rgba(10,6,16,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .45s}
+.news-view.on{opacity:1;pointer-events:auto}
+.news-view img{width:75vw;max-height:92vh;object-fit:contain;border-radius:16px;box-shadow:0 24px 80px rgba(0,0,0,.55);transform:scale(.94);transition:transform .45s}
+.news-view.on img{transform:none}
+.news-view .v-close{position:absolute}
+@media(max-width:600px){.news-btn{top:12px;left:12px;width:40px;height:40px;font-size:21px}.news-list{top:60px;left:12px}.news-view img{width:auto;max-width:86vw;max-height:82vh}}
 </style>
 </head>
 <body class="splash">
 <div class="app"><div class="bg"></div><canvas id="starfield"></canvas>
 <audio id="siteMusic" src="music/site_music.mp3" loop preload="auto"></audio>
+<button class="news-btn" id="newsBtn" title="Новости" aria-label="Новости" data-i18n-attr="title:news.title;aria-label:news.title">!<span class="dot"></span></button>
+<div class="news-list" id="newsList" role="dialog" aria-label="Новости"></div>
+<div class="news-view" id="newsView" aria-hidden="true"><img id="newsImg" alt=""><button class="v-close" id="newsClose" aria-label="Закрыть" data-i18n-attr="aria-label:viewer.close;title:viewer.close">×</button></div>
 <button class="gear" id="gearBtn" title="Настройки" aria-label="Настройки" data-i18n-attr="title:settings.title;aria-label:settings.title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 <main>
 <header><h1 class="logo" data-i18n="site.title">Истории параллельных миров</h1><div class="subtitle" data-i18n="site.subtitle">там, где каждая история становится реальностью</div></header>
@@ -372,6 +418,25 @@ html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
     </div>
     <div class="saved" id="savedMsg" data-i18n="profile.saved">Профиль сохранён ✦</div>
   </form>
+  <div class="account" id="account">
+    <div class="acc-title" data-i18n="acc.title">Аккаунт</div>
+    <div class="acc-sub" id="accSub">Войдите, чтобы профиль, избранное, статы и сохранения игр были на всех ваших устройствах.</div>
+    <form class="p-form" id="accForm" autocomplete="on">
+      <div><label for="accLogin" data-i18n="acc.login">Логин</label><input type="text" id="accLogin" maxlength="24" autocomplete="username" autocapitalize="off" spellcheck="false"></div>
+      <div><label for="accPass" data-i18n="acc.password">Пароль</label><input type="password" id="accPass" maxlength="64" autocomplete="current-password"></div>
+      <div class="p-actions"><button type="submit" class="play" data-i18n="acc.signin">Войти</button><button type="button" class="ghost" id="accSignUp" data-i18n="acc.signup">Создать аккаунт</button></div>
+    </form>
+    <div id="accIn" hidden>
+      <div class="acc-who"><span data-i18n="acc.as">Вы вошли как</span> <b id="accWho"></b></div>
+      <div class="acc-sync" id="accSync"></div>
+      <form class="p-form" id="accChange" autocomplete="off">
+        <div><label for="accNewLogin" data-i18n="acc.newLogin">Новый логин</label><input type="text" id="accNewLogin" maxlength="24" autocapitalize="off" spellcheck="false"></div>
+        <div><label for="accNewPass" data-i18n="acc.newPass">Новый пароль</label><input type="password" id="accNewPass" maxlength="64" autocomplete="new-password"></div>
+        <div class="p-actions"><button type="submit" class="play" data-i18n="acc.saveChanges">Сохранить</button><button type="button" class="ghost" id="accOut" data-i18n="acc.signout">Выйти</button></div>
+      </form>
+    </div>
+    <div class="acc-msg" id="accMsg"></div>
+  </div>
 </div>
 </div></section>
 <section id="scenes" class="view"><div class="panel"><div class="section-title" data-i18n="nav.scenes">Кат-сцены</div><div class="empty" data-i18n="scenes.empty">Здесь будут собираться просмотренные кат-сцены.</div></div></section>
@@ -404,6 +469,7 @@ html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
 <div class="viewer" id="viewer" hidden>
   <img id="viewerImg" alt="" draggable="false">
   <button class="v-close" id="viewerClose" aria-label="Закрыть" data-i18n-attr="aria-label:viewer.close;title:viewer.close">×</button>
+  <div class="v-stats" id="viewerStats"></div>
   <div class="v-hint" id="viewerHint" data-i18n="viewer.hint">Колёсико мыши или два пальца — приблизить</div>
 </div>
 <div id="cropModal" class="modal"><div class="cropbox">
@@ -415,12 +481,13 @@ html[lang=ko] .card p,html[lang=ko] .empty{word-break:keep-all}
 </div></div>
 <div id="modal" class="modal"><div class="modalbox"><button class="close" onclick="closeGame()" aria-label="Закрыть игру" title="Закрыть игру" data-i18n-attr="aria-label:game.close;title:game.close">×</button><h2 data-i18n="aliy.title">Алый рассвет</h2><div class="gamearea"><iframe id="gameframe" title="Алый рассвет" data-i18n-attr="title:aliy.title" allow="autoplay; fullscreen" allowfullscreen></iframe></div></div></div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script>
 /* ================= ЯЗЫКИ =================
    Все тексты сайта на пяти языках. Язык выбирается в Настройках и запоминается.
    Заставки историй: covers/<язык>/<файл>.jpg (например covers/en/cover_aliy_rassvet.jpg).
    Если заставки на нужном языке нет — показывается русская из папки covers. */
-var I18N={"ru": {"site.title": "Истории параллельных миров", "site.subtitle": "там, где каждая история становится реальностью", "nav.stories": "Истории", "nav.profile": "Профиль", "nav.scenes": "Кат-сцены", "nav.features": "Функции", "nav.favorites": "Избранное", "card.play": "Играть", "card.soon": "Скоро", "card.soonBadge": "История скоро появится", "aliy.title": "Алый рассвет", "aliy.sub": "Сорок девять дней", "aliy.desc": "Всю жизнь жила в золотой клетке. Что ж, пора её сломать! Но впереди столько тайн и открытий. Первое правило — выжить.", "ten.title": "Тень надежды", "ten.desc": "Я всегда находила в жизни свет. Но в самые тёмные дни не могла.<br>Воспоминания и надежда — всё, что у меня есть. Пока что…", "odin.title": "Один вдох", "odin.desc": "Война пришла в мой дом под чужими знамёнами. Между жизнью и смертью — всего один вдох, и мне решать, кем я стану.", "za.title": "За Гранью", "za.desc": "По одну сторону — солнце и родной дом, по другую — тёмный лес, где в замке ждёт чудовище. Один шаг за грань, и пути назад уже не будет.", "fav.add": "В избранное", "fav.remove": "Убрать из избранного", "favorites.empty": "Здесь будут ваши любимые истории.<br>Нажмите ♡ на карточке истории, чтобы добавить её сюда.", "scenes.empty": "Здесь будут собираться просмотренные кат-сцены.", "features.empty": "Дополнительные функции проекта.", "profile.changePhoto": "Сменить фото", "profile.defaultName": "Путешественница", "profile.defaultStatus": "Расскажите о себе", "profile.name": "Имя", "profile.namePh": "Как вас зовут?", "profile.status": "Статус", "profile.statusPh": "Например: в поисках своей истории", "profile.save": "Сохранить", "profile.adjust": "Настроить область фото", "profile.remove": "Убрать фото", "profile.saved": "Профиль сохранён ✦", "profile.saveError": "Не удалось сохранить: фото слишком большое или браузер запрещает хранение.", "crop.title": "Область фото", "crop.zoom": "Приближение", "crop.hint": "Перетащите фото, чтобы выбрать область. Приблизьте ползунком или колёсиком мыши.", "crop.ok": "Готово", "crop.cancel": "Отмена", "settings.title": "Настройки", "settings.language": "Язык", "settings.music": "Музыка сайта", "settings.musicSub": "Тихая фоновая мелодия", "settings.volume": "Громкость", "intro.tap": "коснитесь экрана", "intro.enter": "Войти на сайт", "game.close": "Закрыть игру", "tma.title": "Тьма Сердца", "tma.desc": "Меня вынудили из своей любимой глуши приехать во дворец. Теперь я — ваша главная проблема. А моя — лицемерный принц.", "feniks.title": "Феникс", "feniks.desc": "Днём — самая желанная танцовщица столицы, ночью — тень с когтями. Борьба за справедливость даётся тяжело. Каждый восход солнца и луны я умираю и возрождаюсь вновь.", "obuzdat.title": "Обуздать память", "obuzdat.desc": "В один момент моя память меня подводит и делит на части. Чтобы не потерять себя, мне придётся обуздать память двух жизней.", "nit.title": "Нить двух миров", "nit.desc": "Однажды мне дали мгновение свободы, и я потеряла её в будущем. Но и многое обрела…<br>Он — источник моих проблем, но появляется в самый нужный момент.", "filter.title": "Фильтры", "filter.status": "Статус", "filter.genre": "Жанр", "filter.reset": "Сбросить", "filter.found": "Найдено историй: {n}", "filter.none": "Ничего не найдено. Попробуйте другие фильтры.", "status.ongoing": "Выходит", "status.soon": "Ожидается", "status.done": "Завершена", "genre.romance": "Романтика", "genre.drama": "Драма", "genre.adventure": "Приключения", "genre.action": "Экшен", "genre.academy": "Академия", "genre.mystery": "Тайны", "genre.family": "Семья", "genre.magic": "Магия", "genre.friends": "Друзья", "genre.disguise": "Маскировка", "genre.past": "Прошлое", "genre.asia": "Азия", "genre.heavy": "Тяжёлые темы", "genre.cruelty": "Жестокость", "genre.humor": "Юмор", "genre.monster": "Монстр", "genre.lightdark": "Свет и тьма", "genre.struggle": "Борьба", "genre.future": "Будущее", "settings.brightness": "Яркость", "settings.brightnessSub": "Яркость фона сайта", "settings.perRow": "Историй в ряду", "settings.pc": "На компьютере", "settings.phone": "На телефоне", "settings.mdesign": "Мобильный дизайн", "settings.mdesignSub": "Вертикальные заставки и короткое описание историй", "viewer.close": "Закрыть", "viewer.hint": "Колёсико мыши или два пальца — приблизить", "viewer.open": "Открыть заставку", "shram.title": "Верный Шрам", "shram.desc": "Когда теряешь всё в один миг и тебе навязывают чужую жизнь, остаётся два варианта: или бороться, или приспособиться. Но я найду третий."}, "en": {"site.title": "Tales of Parallel Worlds", "site.subtitle": "where every story becomes reality", "nav.stories": "Stories", "nav.profile": "Profile", "nav.scenes": "Cutscenes", "nav.features": "Features", "nav.favorites": "Favorites", "card.play": "Play", "card.soon": "Soon", "card.soonBadge": "Coming soon", "aliy.title": "Scarlet Dawn", "aliy.sub": "Forty-Nine Days", "aliy.desc": "I've spent my whole life in a golden cage. Well, it's time to break it! But so many secrets and discoveries lie ahead. Rule number one: survive.", "ten.title": "Shadow of Hope", "ten.desc": "I always found the light in life. But in the darkest days, I couldn't.<br>Memories and hope are all I have. For now…", "odin.title": "One Breath", "odin.desc": "War came to my home under foreign banners. Between life and death there is only one breath — and I decide who I will become.", "za.title": "Beyond the Edge", "za.desc": "On one side, sunshine and home; on the other, a dark forest where a monster waits in its castle. One step beyond the edge, and there is no turning back.", "fav.add": "Add to favorites", "fav.remove": "Remove from favorites", "favorites.empty": "Your favorite stories will appear here.<br>Tap ♡ on a story card to add it.", "scenes.empty": "Cutscenes you've watched will be collected here.", "features.empty": "Additional project features.", "profile.changePhoto": "Change photo", "profile.defaultName": "Traveler", "profile.defaultStatus": "Tell us about yourself", "profile.name": "Name", "profile.namePh": "What's your name?", "profile.status": "Status", "profile.statusPh": "e.g. searching for my story", "profile.save": "Save", "profile.adjust": "Adjust photo area", "profile.remove": "Remove photo", "profile.saved": "Profile saved ✦", "profile.saveError": "Couldn't save: the photo is too large or the browser blocks storage.", "crop.title": "Photo area", "crop.zoom": "Zoom", "crop.hint": "Drag the photo to choose the area. Zoom with the slider or mouse wheel.", "crop.ok": "Done", "crop.cancel": "Cancel", "settings.title": "Settings", "settings.language": "Language", "settings.music": "Site music", "settings.musicSub": "Soft background melody", "settings.volume": "Volume", "intro.tap": "tap the screen", "intro.enter": "Enter the site", "game.close": "Close game", "tma.title": "Darkness of the Heart", "tma.desc": "I was forced to leave my beloved backwoods and come to the palace. Now I'm your biggest problem. And mine is a hypocritical prince.", "feniks.title": "Phoenix", "feniks.desc": "By day, the most desired dancer in the capital; by night, a shadow with claws. The fight for justice is hard. With every rising of the sun and the moon, I die and am reborn.", "obuzdat.title": "Taming Memory", "obuzdat.desc": "In a single moment, my memory fails me and splits me into pieces. To keep from losing myself, I must tame the memory of two lives.", "nit.title": "Thread of Two Worlds", "nit.desc": "Once I was given a moment of freedom, and I lost it in the future. But I gained so much, too…<br>He is the source of my troubles, yet he always appears at just the right moment.", "filter.title": "Filters", "filter.status": "Status", "filter.genre": "Genre", "filter.reset": "Reset", "filter.found": "Stories found: {n}", "filter.none": "Nothing found. Try other filters.", "status.ongoing": "Ongoing", "status.soon": "Coming soon", "status.done": "Completed", "genre.romance": "Romance", "genre.drama": "Drama", "genre.adventure": "Adventure", "genre.action": "Action", "genre.academy": "Academy", "genre.mystery": "Mysteries", "genre.family": "Family", "genre.magic": "Magic", "genre.friends": "Friends", "genre.disguise": "Disguise", "genre.past": "The past", "genre.asia": "Asia", "genre.heavy": "Heavy themes", "genre.cruelty": "Violence", "genre.humor": "Humor", "genre.monster": "Monster", "genre.lightdark": "Light and dark", "genre.struggle": "Struggle", "genre.future": "The future", "settings.brightness": "Brightness", "settings.brightnessSub": "Site background brightness", "settings.perRow": "Stories per row", "settings.pc": "On a computer", "settings.phone": "On a phone", "settings.mdesign": "Mobile design", "settings.mdesignSub": "Vertical covers and short story descriptions", "viewer.close": "Close", "viewer.hint": "Mouse wheel or two fingers to zoom", "viewer.open": "Open cover", "shram.title": "Faithful Scar", "shram.desc": "When you lose everything in an instant and someone else's life is forced upon you, there are two options left: fight or adapt. But I will find a third."}, "es": {"site.title": "Historias de mundos paralelos", "site.subtitle": "donde cada historia se hace realidad", "nav.stories": "Historias", "nav.profile": "Perfil", "nav.scenes": "Escenas", "nav.features": "Funciones", "nav.favorites": "Favoritos", "card.play": "Jugar", "card.soon": "Pronto", "card.soonBadge": "Próximamente", "aliy.title": "Amanecer escarlata", "aliy.sub": "Cuarenta y nueve días", "aliy.desc": "Toda mi vida he vivido en una jaula de oro. ¡Pues ha llegado la hora de romperla! Pero me esperan tantos secretos y descubrimientos… Primera regla: sobrevivir.", "ten.title": "La sombra de la esperanza", "ten.desc": "Siempre encontraba la luz en la vida. Pero en los días más oscuros no pude.<br>Los recuerdos y la esperanza son todo lo que tengo. Por ahora…", "odin.title": "Un solo aliento", "odin.desc": "La guerra llegó a mi hogar bajo estandartes extranjeros. Entre la vida y la muerte solo hay un aliento, y yo decido en quién me convertiré.", "za.title": "Más allá del límite", "za.desc": "A un lado, el sol y mi hogar; al otro, un bosque oscuro donde un monstruo aguarda en su castillo. Un paso más allá del límite y ya no habrá vuelta atrás.", "fav.add": "Añadir a favoritos", "fav.remove": "Quitar de favoritos", "favorites.empty": "Aquí aparecerán tus historias favoritas.<br>Pulsa ♡ en una historia para añadirla.", "scenes.empty": "Aquí se reunirán las escenas que hayas visto.", "features.empty": "Funciones adicionales del proyecto.", "profile.changePhoto": "Cambiar foto", "profile.defaultName": "Viajera", "profile.defaultStatus": "Cuéntanos sobre ti", "profile.name": "Nombre", "profile.namePh": "¿Cómo te llamas?", "profile.status": "Estado", "profile.statusPh": "Por ejemplo: en busca de mi historia", "profile.save": "Guardar", "profile.adjust": "Ajustar la foto", "profile.remove": "Quitar foto", "profile.saved": "Perfil guardado ✦", "profile.saveError": "No se pudo guardar: la foto es demasiado grande o el navegador bloquea el almacenamiento.", "crop.title": "Área de la foto", "crop.zoom": "Zoom", "crop.hint": "Arrastra la foto para elegir el área. Acerca con el control deslizante o la rueda del ratón.", "crop.ok": "Listo", "crop.cancel": "Cancelar", "settings.title": "Ajustes", "settings.language": "Idioma", "settings.music": "Música del sitio", "settings.musicSub": "Melodía de fondo suave", "settings.volume": "Volumen", "intro.tap": "toca la pantalla", "intro.enter": "Entrar al sitio", "game.close": "Cerrar juego", "tma.title": "Oscuridad del corazón", "tma.desc": "Me obligaron a dejar mi querido rincón perdido y venir al palacio. Ahora soy vuestro mayor problema. Y el mío, un príncipe hipócrita.", "feniks.title": "Fénix", "feniks.desc": "De día, la bailarina más deseada de la capital; de noche, una sombra con garras. La lucha por la justicia es dura. Con cada salida del sol y de la luna, muero y renazco.", "obuzdat.title": "Domar la memoria", "obuzdat.desc": "En un instante, mi memoria me traiciona y me divide en pedazos. Para no perderme, tendré que domar la memoria de dos vidas.", "nit.title": "El hilo de dos mundos", "nit.desc": "Una vez me dieron un instante de libertad, y lo perdí en el futuro. Pero también gané mucho…<br>Él es la fuente de mis problemas, pero aparece justo en el momento preciso.", "filter.title": "Filtros", "filter.status": "Estado", "filter.genre": "Género", "filter.reset": "Restablecer", "filter.found": "Historias encontradas: {n}", "filter.none": "No se encontró nada. Prueba con otros filtros.", "status.ongoing": "En curso", "status.soon": "Próximamente", "status.done": "Completada", "genre.romance": "Romance", "genre.drama": "Drama", "genre.adventure": "Aventura", "genre.action": "Acción", "genre.academy": "Academia", "genre.mystery": "Misterios", "genre.family": "Familia", "genre.magic": "Magia", "genre.friends": "Amigos", "genre.disguise": "Disfraz", "genre.past": "El pasado", "genre.asia": "Asia", "genre.heavy": "Temas difíciles", "genre.cruelty": "Violencia", "genre.humor": "Humor", "genre.monster": "Monstruo", "genre.lightdark": "Luz y oscuridad", "genre.struggle": "Lucha", "genre.future": "El futuro", "settings.brightness": "Brillo", "settings.brightnessSub": "Brillo del fondo del sitio", "settings.perRow": "Historias por fila", "settings.pc": "En el ordenador", "settings.phone": "En el móvil", "settings.mdesign": "Diseño móvil", "settings.mdesignSub": "Portadas verticales y descripciones breves", "viewer.close": "Cerrar", "viewer.hint": "Rueda del ratón o dos dedos para ampliar", "viewer.open": "Abrir portada", "shram.title": "Cicatriz Fiel", "shram.desc": "Cuando lo pierdes todo en un instante y te imponen una vida ajena, quedan dos opciones: luchar o adaptarte. Pero yo encontraré una tercera."}, "de": {"site.title": "Geschichten paralleler Welten", "site.subtitle": "wo jede Geschichte Wirklichkeit wird", "nav.stories": "Geschichten", "nav.profile": "Profil", "nav.scenes": "Szenen", "nav.features": "Funktionen", "nav.favorites": "Favoriten", "card.play": "Spielen", "card.soon": "Bald", "card.soonBadge": "Demnächst", "aliy.title": "Scharlachrote Morgenröte", "aliy.sub": "Neunundvierzig Tage", "aliy.desc": "Mein ganzes Leben habe ich in einem goldenen Käfig verbracht. Nun, Zeit, ihn zu sprengen! Doch vor mir liegen so viele Geheimnisse und Entdeckungen. Erste Regel: überleben.", "ten.title": "Schatten der Hoffnung", "ten.desc": "Ich habe im Leben immer das Licht gefunden. Doch in den dunkelsten Tagen konnte ich es nicht.<br>Erinnerungen und Hoffnung sind alles, was mir bleibt. Vorerst…", "odin.title": "Ein Atemzug", "odin.desc": "Der Krieg kam unter fremden Bannern in mein Zuhause. Zwischen Leben und Tod liegt nur ein Atemzug – und ich entscheide, wer ich werde.", "za.title": "Jenseits der Grenze", "za.desc": "Auf der einen Seite Sonne und Zuhause, auf der anderen ein dunkler Wald, in dessen Schloss ein Ungeheuer wartet. Ein Schritt über die Grenze – und es gibt kein Zurück.", "fav.add": "Zu Favoriten hinzufügen", "fav.remove": "Aus Favoriten entfernen", "favorites.empty": "Hier erscheinen deine Lieblingsgeschichten.<br>Tippe bei einer Geschichte auf ♡, um sie hinzuzufügen.", "scenes.empty": "Hier werden die Szenen gesammelt, die du gesehen hast.", "features.empty": "Zusätzliche Funktionen des Projekts.", "profile.changePhoto": "Foto ändern", "profile.defaultName": "Reisende", "profile.defaultStatus": "Erzähl etwas über dich", "profile.name": "Name", "profile.namePh": "Wie heißt du?", "profile.status": "Status", "profile.statusPh": "Zum Beispiel: auf der Suche nach meiner Geschichte", "profile.save": "Speichern", "profile.adjust": "Fotoausschnitt anpassen", "profile.remove": "Foto entfernen", "profile.saved": "Profil gespeichert ✦", "profile.saveError": "Speichern fehlgeschlagen: Das Foto ist zu groß oder der Browser blockiert den Speicher.", "crop.title": "Fotoausschnitt", "crop.zoom": "Zoom", "crop.hint": "Ziehe das Foto, um den Ausschnitt zu wählen. Zoome mit dem Regler oder dem Mausrad.", "crop.ok": "Fertig", "crop.cancel": "Abbrechen", "settings.title": "Einstellungen", "settings.language": "Sprache", "settings.music": "Musik der Website", "settings.musicSub": "Leise Hintergrundmelodie", "settings.volume": "Lautstärke", "intro.tap": "tippe auf den Bildschirm", "intro.enter": "Website betreten", "game.close": "Spiel schließen", "tma.title": "Dunkelheit des Herzens", "tma.desc": "Man zwang mich, meine geliebte Einöde zu verlassen und an den Hof zu kommen. Jetzt bin ich euer größtes Problem. Und meins ist ein heuchlerischer Prinz.", "feniks.title": "Phönix", "feniks.desc": "Bei Tag die begehrteste Tänzerin der Hauptstadt, bei Nacht ein Schatten mit Krallen. Der Kampf für Gerechtigkeit ist hart. Mit jedem Aufgang von Sonne und Mond sterbe ich und werde neu geboren.", "obuzdat.title": "Die Erinnerung zähmen", "obuzdat.desc": "Von einem Moment auf den anderen lässt mich mein Gedächtnis im Stich und teilt mich in Stücke. Um mich nicht zu verlieren, muss ich die Erinnerung zweier Leben zähmen.", "nit.title": "Der Faden zweier Welten", "nit.desc": "Einmal schenkte man mir einen Augenblick Freiheit, und ich verlor ihn in der Zukunft. Doch ich habe auch vieles gewonnen…<br>Er ist die Quelle meiner Probleme, doch er taucht genau im richtigen Moment auf.", "filter.title": "Filter", "filter.status": "Status", "filter.genre": "Genre", "filter.reset": "Zurücksetzen", "filter.found": "Gefundene Geschichten: {n}", "filter.none": "Nichts gefunden. Versuche andere Filter.", "status.ongoing": "Läuft", "status.soon": "Demnächst", "status.done": "Abgeschlossen", "genre.romance": "Romantik", "genre.drama": "Drama", "genre.adventure": "Abenteuer", "genre.action": "Action", "genre.academy": "Akademie", "genre.mystery": "Geheimnisse", "genre.family": "Familie", "genre.magic": "Magie", "genre.friends": "Freunde", "genre.disguise": "Verkleidung", "genre.past": "Vergangenheit", "genre.asia": "Asien", "genre.heavy": "Schwere Themen", "genre.cruelty": "Gewalt", "genre.humor": "Humor", "genre.monster": "Monster", "genre.lightdark": "Licht und Dunkelheit", "genre.struggle": "Kampf", "genre.future": "Zukunft", "settings.brightness": "Helligkeit", "settings.brightnessSub": "Helligkeit des Hintergrunds", "settings.perRow": "Geschichten pro Reihe", "settings.pc": "Am Computer", "settings.phone": "Am Handy", "settings.mdesign": "Mobiles Design", "settings.mdesignSub": "Hochformat-Cover und kurze Beschreibungen", "viewer.close": "Schließen", "viewer.hint": "Mausrad oder zwei Finger zum Zoomen", "viewer.open": "Titelbild öffnen", "shram.title": "Treue Narbe", "shram.desc": "Wenn man in einem Augenblick alles verliert und einem ein fremdes Leben aufgezwungen wird, bleiben zwei Möglichkeiten: kämpfen oder sich anpassen. Doch ich werde eine dritte finden."}, "ko": {"site.title": "평행 세계 이야기", "site.subtitle": "모든 이야기가 현실이 되는 곳", "nav.stories": "이야기", "nav.profile": "프로필", "nav.scenes": "컷신", "nav.features": "기능", "nav.favorites": "즐겨찾기", "card.play": "플레이", "card.soon": "곧 공개", "card.soonBadge": "곧 공개 예정", "aliy.title": "붉은 새벽", "aliy.sub": "49일", "aliy.desc": "평생을 황금 새장 속에서 살아왔다. 이제 그 새장을 부술 때다! 하지만 앞에는 수많은 비밀과 발견이 기다리고 있다. 첫 번째 규칙 — 살아남을 것.", "ten.title": "희망의 그림자", "ten.desc": "나는 언제나 삶에서 빛을 찾아냈다. 하지만 가장 어두운 날들엔 그럴 수 없었다.<br>추억과 희망 — 그것이 내가 가진 전부다. 아직은…", "odin.title": "한 번의 숨", "odin.desc": "전쟁이 낯선 깃발을 앞세워 나의 집에 찾아왔다. 삶과 죽음 사이엔 단 한 번의 숨뿐 — 내가 누가 될지는 내가 정한다.", "za.title": "경계 너머", "za.desc": "한쪽엔 햇살과 고향이, 다른 쪽엔 괴물이 성에서 기다리는 어두운 숲이 있다. 경계를 한 걸음 넘으면, 돌아갈 길은 없다.", "fav.add": "즐겨찾기에 추가", "fav.remove": "즐겨찾기에서 삭제", "favorites.empty": "좋아하는 이야기가 여기에 표시됩니다.<br>이야기 카드의 ♡를 눌러 추가하세요.", "scenes.empty": "시청한 컷신이 여기에 모입니다.", "features.empty": "프로젝트의 추가 기능.", "profile.changePhoto": "사진 변경", "profile.defaultName": "여행자", "profile.defaultStatus": "자기소개를 해 주세요", "profile.name": "이름", "profile.namePh": "이름이 무엇인가요?", "profile.status": "상태 메시지", "profile.statusPh": "예: 나만의 이야기를 찾는 중", "profile.save": "저장", "profile.adjust": "사진 영역 조정", "profile.remove": "사진 삭제", "profile.saved": "프로필이 저장되었습니다 ✦", "profile.saveError": "저장할 수 없습니다: 사진이 너무 크거나 브라우저가 저장을 차단했습니다.", "crop.title": "사진 영역", "crop.zoom": "확대", "crop.hint": "사진을 드래그해 영역을 선택하세요. 슬라이더나 마우스 휠로 확대할 수 있습니다.", "crop.ok": "완료", "crop.cancel": "취소", "settings.title": "설정", "settings.language": "언어", "settings.music": "사이트 음악", "settings.musicSub": "잔잔한 배경 음악", "settings.volume": "볼륨", "intro.tap": "화면을 터치하세요", "intro.enter": "입장하기", "game.close": "게임 닫기", "tma.title": "마음의 어둠", "tma.desc": "사랑하는 시골을 떠나 억지로 궁에 오게 되었다. 이제 나는 당신들의 가장 큰 골칫거리다. 그리고 내 골칫거리는 위선적인 왕자다.", "feniks.title": "피닉스", "feniks.desc": "낮에는 수도에서 가장 사랑받는 무희, 밤에는 발톱을 가진 그림자. 정의를 위한 싸움은 쉽지 않다. 해와 달이 뜰 때마다 나는 죽고 다시 태어난다.", "obuzdat.title": "기억을 길들이다", "obuzdat.desc": "어느 순간, 내 기억이 나를 배신하고 나를 조각조각 나눈다. 나 자신을 잃지 않으려면 두 삶의 기억을 길들여야 한다.", "nit.title": "두 세계의 실", "nit.desc": "한때 내게 자유의 순간이 주어졌고, 나는 그것을 미래에서 잃어버렸다. 하지만 얻은 것도 많았다…<br>그는 내 모든 문제의 근원이지만, 꼭 필요한 순간에 나타난다.", "filter.title": "필터", "filter.status": "상태", "filter.genre": "장르", "filter.reset": "초기화", "filter.found": "찾은 이야기: {n}", "filter.none": "결과가 없습니다. 다른 필터를 선택해 보세요.", "status.ongoing": "연재 중", "status.soon": "공개 예정", "status.done": "완결", "genre.romance": "로맨스", "genre.drama": "드라마", "genre.adventure": "모험", "genre.action": "액션", "genre.academy": "아카데미", "genre.mystery": "미스터리", "genre.family": "가족", "genre.magic": "마법", "genre.friends": "우정", "genre.disguise": "변장", "genre.past": "과거", "genre.asia": "아시아", "genre.heavy": "무거운 주제", "genre.cruelty": "폭력", "genre.humor": "유머", "genre.monster": "괴물", "genre.lightdark": "빛과 어둠", "genre.struggle": "투쟁", "genre.future": "미래", "settings.brightness": "밝기", "settings.brightnessSub": "사이트 배경 밝기", "settings.perRow": "한 줄에 표시할 이야기", "settings.pc": "컴퓨터", "settings.phone": "휴대폰", "settings.mdesign": "모바일 디자인", "settings.mdesignSub": "세로 표지와 짧은 소개", "viewer.close": "닫기", "viewer.hint": "마우스 휠 또는 두 손가락으로 확대", "viewer.open": "표지 크게 보기", "shram.title": "충직한 흉터", "shram.desc": "한순간에 모든 것을 잃고 남의 삶을 강요당할 때, 남은 선택지는 두 가지뿐이다. 싸우거나, 적응하거나. 하지만 나는 세 번째 길을 찾을 것이다."}};
+var I18N={"ru": {"site.title": "Истории параллельных миров", "site.subtitle": "там, где каждая история становится реальностью", "nav.stories": "Истории", "nav.profile": "Профиль", "nav.scenes": "Кат-сцены", "nav.features": "Функции", "nav.favorites": "Избранное", "card.play": "Играть", "card.soon": "Скоро", "card.soonBadge": "История скоро появится", "aliy.title": "Алый рассвет", "aliy.sub": "Сорок девять дней", "aliy.desc": "Всю жизнь жила в золотой клетке. Что ж, пора её сломать! Но впереди столько тайн и открытий. Первое правило — выжить.", "ten.title": "Тень надежды", "ten.desc": "Я всегда находила в жизни свет. Но в самые тёмные дни не могла.<br>Воспоминания и надежда — всё, что у меня есть. Пока что…", "odin.title": "Один вдох", "odin.desc": "Война пришла в мой дом под чужими знамёнами. Между жизнью и смертью — всего один вдох, и мне решать, кем я стану.", "za.title": "За Гранью", "za.desc": "По одну сторону — солнце и родной дом, по другую — тёмный лес, где в замке ждёт чудовище. Один шаг за грань, и пути назад уже не будет.", "fav.add": "В избранное", "fav.remove": "Убрать из избранного", "favorites.empty": "Здесь будут ваши любимые истории.<br>Нажмите ♡ на карточке истории, чтобы добавить её сюда.", "scenes.empty": "Здесь будут собираться просмотренные кат-сцены.", "features.empty": "Дополнительные функции проекта.", "profile.changePhoto": "Сменить фото", "profile.defaultName": "Путешественница", "profile.defaultStatus": "Расскажите о себе", "profile.name": "Имя", "profile.namePh": "Как вас зовут?", "profile.status": "Статус", "profile.statusPh": "Например: в поисках своей истории", "profile.save": "Сохранить", "profile.adjust": "Настроить область фото", "profile.remove": "Убрать фото", "profile.saved": "Профиль сохранён ✦", "profile.saveError": "Не удалось сохранить: фото слишком большое или браузер запрещает хранение.", "crop.title": "Область фото", "crop.zoom": "Приближение", "crop.hint": "Перетащите фото, чтобы выбрать область. Приблизьте ползунком или колёсиком мыши.", "crop.ok": "Готово", "crop.cancel": "Отмена", "settings.title": "Настройки", "settings.language": "Язык", "settings.music": "Музыка сайта", "settings.musicSub": "Тихая фоновая мелодия", "settings.volume": "Громкость", "intro.tap": "коснитесь экрана", "intro.enter": "Войти на сайт", "game.close": "Закрыть игру", "tma.title": "Тьма Сердца", "tma.desc": "Меня вынудили из своей любимой глуши приехать во дворец. Теперь я — ваша главная проблема. А моя — лицемерный принц.", "feniks.title": "Феникс", "feniks.desc": "Днём — самая желанная танцовщица столицы, ночью — тень с когтями. Борьба за справедливость даётся тяжело. Каждый восход солнца и луны я умираю и возрождаюсь вновь.", "obuzdat.title": "Обуздать память", "obuzdat.desc": "В один момент моя память меня подводит и делит на части. Чтобы не потерять себя, мне придётся обуздать память двух жизней.", "nit.title": "Нить двух миров", "nit.desc": "Однажды мне дали мгновение свободы, и я потеряла её в будущем. Но и многое обрела…<br>Он — источник моих проблем, но появляется в самый нужный момент.", "filter.title": "Фильтры", "filter.status": "Статус", "filter.genre": "Жанр", "filter.reset": "Сбросить", "filter.found": "Найдено историй: {n}", "filter.none": "Ничего не найдено. Попробуйте другие фильтры.", "status.ongoing": "Выходит", "status.soon": "Ожидается", "status.done": "Завершена", "genre.romance": "Романтика", "genre.drama": "Драма", "genre.adventure": "Приключения", "genre.action": "Экшен", "genre.academy": "Академия", "genre.mystery": "Тайны", "genre.family": "Семья", "genre.magic": "Магия", "genre.friends": "Друзья", "genre.disguise": "Маскировка", "genre.past": "Прошлое", "genre.asia": "Азия", "genre.heavy": "Тяжёлые темы", "genre.cruelty": "Жестокость", "genre.humor": "Юмор", "genre.monster": "Монстр", "genre.lightdark": "Свет и тьма", "genre.struggle": "Борьба", "genre.future": "Будущее", "settings.brightness": "Яркость", "settings.brightnessSub": "Яркость фона сайта", "settings.perRow": "Историй в ряду", "settings.pc": "На компьютере", "settings.phone": "На телефоне", "acc.title": "Аккаунт", "acc.sub": "Войдите, чтобы профиль, избранное, статы и сохранения игр были на всех ваших устройствах.", "acc.subIn": "Всё сохраняется в аккаунте и подтягивается на других устройствах.", "acc.login": "Логин", "acc.password": "Пароль", "acc.signin": "Войти", "acc.signup": "Создать аккаунт", "acc.as": "Вы вошли как", "acc.newLogin": "Новый логин", "acc.newPass": "Новый пароль", "acc.saveChanges": "Сохранить", "acc.signout": "Выйти", "acc.offline": "Вход сейчас недоступен — нет связи с сервером.", "acc.fill": "Введите логин и пароль.", "acc.wait": "Подождите…", "acc.wrong": "Неверный логин или пароль.", "acc.signedIn": "Вы вошли ✦", "acc.badLogin": "Логин: от 3 до 24 символов — буквы, цифры, точка, дефис или _.", "acc.shortPass": "Пароль — не короче 6 символов.", "acc.taken": "Такой логин уже занят.", "acc.err": "Не получилось. Попробуйте ещё раз.", "acc.created": "Аккаунт создан ✦", "acc.changed": "Изменения сохранены ✦", "acc.signedOut": "Вы вышли из аккаунта.", "acc.syncing": "Сохраняем в аккаунт…", "acc.synced": "Всё сохранено в аккаунте ✦", "acc.syncErr": "Не удалось сохранить в аккаунт — попробуем позже.", "settings.mdesign": "Мобильный дизайн", "settings.mdesignSub": "Вертикальные заставки и короткое описание историй", "viewer.close": "Закрыть", "viewer.hint": "Колёсико мыши или два пальца — приблизить", "viewer.statsHint": "Нажмите на картинку — статы истории", "news.title": "Новости", "news.all": "Все новости", "news.n1": "Новые истории: Тень надежды и Тьма Сердца", "stat.dark": "Тьма", "stat.life": "Жизнь", "stat.clear": "Ясно", "stat.fog": "Туманно", "viewer.open": "Открыть заставку", "shram.title": "Верный Шрам", "shram.desc": "Когда теряешь всё в один миг и тебе навязывают чужую жизнь, остаётся два варианта: или бороться, или приспособиться. Но я найду третий."}, "en": {"site.title": "Tales of Parallel Worlds", "site.subtitle": "where every story becomes reality", "nav.stories": "Stories", "nav.profile": "Profile", "nav.scenes": "Cutscenes", "nav.features": "Features", "nav.favorites": "Favorites", "card.play": "Play", "card.soon": "Soon", "card.soonBadge": "Coming soon", "aliy.title": "Scarlet Dawn", "aliy.sub": "Forty-Nine Days", "aliy.desc": "I've spent my whole life in a golden cage. Well, it's time to break it! But so many secrets and discoveries lie ahead. Rule number one: survive.", "ten.title": "Shadow of Hope", "ten.desc": "I always found the light in life. But in the darkest days, I couldn't.<br>Memories and hope are all I have. For now…", "odin.title": "One Breath", "odin.desc": "War came to my home under foreign banners. Between life and death there is only one breath — and I decide who I will become.", "za.title": "Beyond the Edge", "za.desc": "On one side, sunshine and home; on the other, a dark forest where a monster waits in its castle. One step beyond the edge, and there is no turning back.", "fav.add": "Add to favorites", "fav.remove": "Remove from favorites", "favorites.empty": "Your favorite stories will appear here.<br>Tap ♡ on a story card to add it.", "scenes.empty": "Cutscenes you've watched will be collected here.", "features.empty": "Additional project features.", "profile.changePhoto": "Change photo", "profile.defaultName": "Traveler", "profile.defaultStatus": "Tell us about yourself", "profile.name": "Name", "profile.namePh": "What's your name?", "profile.status": "Status", "profile.statusPh": "e.g. searching for my story", "profile.save": "Save", "profile.adjust": "Adjust photo area", "profile.remove": "Remove photo", "profile.saved": "Profile saved ✦", "profile.saveError": "Couldn't save: the photo is too large or the browser blocks storage.", "crop.title": "Photo area", "crop.zoom": "Zoom", "crop.hint": "Drag the photo to choose the area. Zoom with the slider or mouse wheel.", "crop.ok": "Done", "crop.cancel": "Cancel", "settings.title": "Settings", "settings.language": "Language", "settings.music": "Site music", "settings.musicSub": "Soft background melody", "settings.volume": "Volume", "intro.tap": "tap the screen", "intro.enter": "Enter the site", "game.close": "Close game", "tma.title": "Darkness of the Heart", "tma.desc": "I was forced to leave my beloved backwoods and come to the palace. Now I'm your biggest problem. And mine is a hypocritical prince.", "feniks.title": "Phoenix", "feniks.desc": "By day, the most desired dancer in the capital; by night, a shadow with claws. The fight for justice is hard. With every rising of the sun and the moon, I die and am reborn.", "obuzdat.title": "Taming Memory", "obuzdat.desc": "In a single moment, my memory fails me and splits me into pieces. To keep from losing myself, I must tame the memory of two lives.", "nit.title": "Thread of Two Worlds", "nit.desc": "Once I was given a moment of freedom, and I lost it in the future. But I gained so much, too…<br>He is the source of my troubles, yet he always appears at just the right moment.", "filter.title": "Filters", "filter.status": "Status", "filter.genre": "Genre", "filter.reset": "Reset", "filter.found": "Stories found: {n}", "filter.none": "Nothing found. Try other filters.", "status.ongoing": "Ongoing", "status.soon": "Coming soon", "status.done": "Completed", "genre.romance": "Romance", "genre.drama": "Drama", "genre.adventure": "Adventure", "genre.action": "Action", "genre.academy": "Academy", "genre.mystery": "Mysteries", "genre.family": "Family", "genre.magic": "Magic", "genre.friends": "Friends", "genre.disguise": "Disguise", "genre.past": "The past", "genre.asia": "Asia", "genre.heavy": "Heavy themes", "genre.cruelty": "Violence", "genre.humor": "Humor", "genre.monster": "Monster", "genre.lightdark": "Light and dark", "genre.struggle": "Struggle", "genre.future": "The future", "settings.brightness": "Brightness", "settings.brightnessSub": "Site background brightness", "settings.perRow": "Stories per row", "settings.pc": "On a computer", "settings.phone": "On a phone", "acc.title": "Account", "acc.sub": "Sign in to keep your profile, favorites, stats and game saves on all your devices.", "acc.subIn": "Everything is saved to your account and appears on your other devices.", "acc.login": "Login", "acc.password": "Password", "acc.signin": "Sign in", "acc.signup": "Create account", "acc.as": "Signed in as", "acc.newLogin": "New login", "acc.newPass": "New password", "acc.saveChanges": "Save", "acc.signout": "Sign out", "acc.offline": "Sign-in is unavailable right now — no connection to the server.", "acc.fill": "Enter your login and password.", "acc.wait": "Please wait…", "acc.wrong": "Wrong login or password.", "acc.signedIn": "Signed in ✦", "acc.badLogin": "Login: 3–24 characters — letters, digits, dot, hyphen or _.", "acc.shortPass": "Password must be at least 6 characters.", "acc.taken": "This login is already taken.", "acc.err": "Something went wrong. Please try again.", "acc.created": "Account created ✦", "acc.changed": "Changes saved ✦", "acc.signedOut": "You have signed out.", "acc.syncing": "Saving to your account…", "acc.synced": "Everything is saved to your account ✦", "acc.syncErr": "Could not save to your account — will retry later.", "settings.mdesign": "Mobile design", "settings.mdesignSub": "Vertical covers and short story descriptions", "viewer.close": "Close", "viewer.hint": "Mouse wheel or two fingers to zoom", "viewer.statsHint": "Tap the picture to see story stats", "news.title": "News", "news.all": "All news", "news.n1": "New stories: Shadow of Hope and Darkness of the Heart", "stat.dark": "Darkness", "stat.life": "Life", "stat.clear": "Clear", "stat.fog": "Misty", "viewer.open": "Open cover", "shram.title": "Faithful Scar", "shram.desc": "When you lose everything in an instant and someone else's life is forced upon you, there are two options left: fight or adapt. But I will find a third."}, "es": {"site.title": "Historias de mundos paralelos", "site.subtitle": "donde cada historia se hace realidad", "nav.stories": "Historias", "nav.profile": "Perfil", "nav.scenes": "Escenas", "nav.features": "Funciones", "nav.favorites": "Favoritos", "card.play": "Jugar", "card.soon": "Pronto", "card.soonBadge": "Próximamente", "aliy.title": "Amanecer escarlata", "aliy.sub": "Cuarenta y nueve días", "aliy.desc": "Toda mi vida he vivido en una jaula de oro. ¡Pues ha llegado la hora de romperla! Pero me esperan tantos secretos y descubrimientos… Primera regla: sobrevivir.", "ten.title": "La sombra de la esperanza", "ten.desc": "Siempre encontraba la luz en la vida. Pero en los días más oscuros no pude.<br>Los recuerdos y la esperanza son todo lo que tengo. Por ahora…", "odin.title": "Un solo aliento", "odin.desc": "La guerra llegó a mi hogar bajo estandartes extranjeros. Entre la vida y la muerte solo hay un aliento, y yo decido en quién me convertiré.", "za.title": "Más allá del límite", "za.desc": "A un lado, el sol y mi hogar; al otro, un bosque oscuro donde un monstruo aguarda en su castillo. Un paso más allá del límite y ya no habrá vuelta atrás.", "fav.add": "Añadir a favoritos", "fav.remove": "Quitar de favoritos", "favorites.empty": "Aquí aparecerán tus historias favoritas.<br>Pulsa ♡ en una historia para añadirla.", "scenes.empty": "Aquí se reunirán las escenas que hayas visto.", "features.empty": "Funciones adicionales del proyecto.", "profile.changePhoto": "Cambiar foto", "profile.defaultName": "Viajera", "profile.defaultStatus": "Cuéntanos sobre ti", "profile.name": "Nombre", "profile.namePh": "¿Cómo te llamas?", "profile.status": "Estado", "profile.statusPh": "Por ejemplo: en busca de mi historia", "profile.save": "Guardar", "profile.adjust": "Ajustar la foto", "profile.remove": "Quitar foto", "profile.saved": "Perfil guardado ✦", "profile.saveError": "No se pudo guardar: la foto es demasiado grande o el navegador bloquea el almacenamiento.", "crop.title": "Área de la foto", "crop.zoom": "Zoom", "crop.hint": "Arrastra la foto para elegir el área. Acerca con el control deslizante o la rueda del ratón.", "crop.ok": "Listo", "crop.cancel": "Cancelar", "settings.title": "Ajustes", "settings.language": "Idioma", "settings.music": "Música del sitio", "settings.musicSub": "Melodía de fondo suave", "settings.volume": "Volumen", "intro.tap": "toca la pantalla", "intro.enter": "Entrar al sitio", "game.close": "Cerrar juego", "tma.title": "Oscuridad del corazón", "tma.desc": "Me obligaron a dejar mi querido rincón perdido y venir al palacio. Ahora soy vuestro mayor problema. Y el mío, un príncipe hipócrita.", "feniks.title": "Fénix", "feniks.desc": "De día, la bailarina más deseada de la capital; de noche, una sombra con garras. La lucha por la justicia es dura. Con cada salida del sol y de la luna, muero y renazco.", "obuzdat.title": "Domar la memoria", "obuzdat.desc": "En un instante, mi memoria me traiciona y me divide en pedazos. Para no perderme, tendré que domar la memoria de dos vidas.", "nit.title": "El hilo de dos mundos", "nit.desc": "Una vez me dieron un instante de libertad, y lo perdí en el futuro. Pero también gané mucho…<br>Él es la fuente de mis problemas, pero aparece justo en el momento preciso.", "filter.title": "Filtros", "filter.status": "Estado", "filter.genre": "Género", "filter.reset": "Restablecer", "filter.found": "Historias encontradas: {n}", "filter.none": "No se encontró nada. Prueba con otros filtros.", "status.ongoing": "En curso", "status.soon": "Próximamente", "status.done": "Completada", "genre.romance": "Romance", "genre.drama": "Drama", "genre.adventure": "Aventura", "genre.action": "Acción", "genre.academy": "Academia", "genre.mystery": "Misterios", "genre.family": "Familia", "genre.magic": "Magia", "genre.friends": "Amigos", "genre.disguise": "Disfraz", "genre.past": "El pasado", "genre.asia": "Asia", "genre.heavy": "Temas difíciles", "genre.cruelty": "Violencia", "genre.humor": "Humor", "genre.monster": "Monstruo", "genre.lightdark": "Luz y oscuridad", "genre.struggle": "Lucha", "genre.future": "El futuro", "settings.brightness": "Brillo", "settings.brightnessSub": "Brillo del fondo del sitio", "settings.perRow": "Historias por fila", "settings.pc": "En el ordenador", "settings.phone": "En el móvil", "acc.title": "Cuenta", "acc.sub": "Inicia sesión para tener tu perfil, favoritos, estadísticas y partidas en todos tus dispositivos.", "acc.subIn": "Todo se guarda en tu cuenta y aparece en tus otros dispositivos.", "acc.login": "Usuario", "acc.password": "Contraseña", "acc.signin": "Entrar", "acc.signup": "Crear cuenta", "acc.as": "Has entrado como", "acc.newLogin": "Nuevo usuario", "acc.newPass": "Nueva contraseña", "acc.saveChanges": "Guardar", "acc.signout": "Salir", "acc.offline": "No se puede entrar ahora: no hay conexión con el servidor.", "acc.fill": "Introduce usuario y contraseña.", "acc.wait": "Espera…", "acc.wrong": "Usuario o contraseña incorrectos.", "acc.signedIn": "Has entrado ✦", "acc.badLogin": "Usuario: de 3 a 24 caracteres — letras, números, punto, guion o _.", "acc.shortPass": "La contraseña debe tener al menos 6 caracteres.", "acc.taken": "Ese usuario ya existe.", "acc.err": "Algo salió mal. Inténtalo de nuevo.", "acc.created": "Cuenta creada ✦", "acc.changed": "Cambios guardados ✦", "acc.signedOut": "Has cerrado sesión.", "acc.syncing": "Guardando en tu cuenta…", "acc.synced": "Todo está guardado en tu cuenta ✦", "acc.syncErr": "No se pudo guardar en la cuenta; se reintentará.", "settings.mdesign": "Diseño móvil", "settings.mdesignSub": "Portadas verticales y descripciones breves", "viewer.close": "Cerrar", "viewer.hint": "Rueda del ratón o dos dedos para ampliar", "viewer.statsHint": "Toca la imagen para ver las estadísticas", "news.title": "Noticias", "news.all": "Todas las noticias", "news.n1": "Nuevas historias: Sombra de esperanza y Oscuridad del corazón", "stat.dark": "Oscuridad", "stat.life": "Vida", "stat.clear": "Despejado", "stat.fog": "Brumoso", "viewer.open": "Abrir portada", "shram.title": "Cicatriz Fiel", "shram.desc": "Cuando lo pierdes todo en un instante y te imponen una vida ajena, quedan dos opciones: luchar o adaptarte. Pero yo encontraré una tercera."}, "de": {"site.title": "Geschichten paralleler Welten", "site.subtitle": "wo jede Geschichte Wirklichkeit wird", "nav.stories": "Geschichten", "nav.profile": "Profil", "nav.scenes": "Szenen", "nav.features": "Funktionen", "nav.favorites": "Favoriten", "card.play": "Spielen", "card.soon": "Bald", "card.soonBadge": "Demnächst", "aliy.title": "Scharlachrote Morgenröte", "aliy.sub": "Neunundvierzig Tage", "aliy.desc": "Mein ganzes Leben habe ich in einem goldenen Käfig verbracht. Nun, Zeit, ihn zu sprengen! Doch vor mir liegen so viele Geheimnisse und Entdeckungen. Erste Regel: überleben.", "ten.title": "Schatten der Hoffnung", "ten.desc": "Ich habe im Leben immer das Licht gefunden. Doch in den dunkelsten Tagen konnte ich es nicht.<br>Erinnerungen und Hoffnung sind alles, was mir bleibt. Vorerst…", "odin.title": "Ein Atemzug", "odin.desc": "Der Krieg kam unter fremden Bannern in mein Zuhause. Zwischen Leben und Tod liegt nur ein Atemzug – und ich entscheide, wer ich werde.", "za.title": "Jenseits der Grenze", "za.desc": "Auf der einen Seite Sonne und Zuhause, auf der anderen ein dunkler Wald, in dessen Schloss ein Ungeheuer wartet. Ein Schritt über die Grenze – und es gibt kein Zurück.", "fav.add": "Zu Favoriten hinzufügen", "fav.remove": "Aus Favoriten entfernen", "favorites.empty": "Hier erscheinen deine Lieblingsgeschichten.<br>Tippe bei einer Geschichte auf ♡, um sie hinzuzufügen.", "scenes.empty": "Hier werden die Szenen gesammelt, die du gesehen hast.", "features.empty": "Zusätzliche Funktionen des Projekts.", "profile.changePhoto": "Foto ändern", "profile.defaultName": "Reisende", "profile.defaultStatus": "Erzähl etwas über dich", "profile.name": "Name", "profile.namePh": "Wie heißt du?", "profile.status": "Status", "profile.statusPh": "Zum Beispiel: auf der Suche nach meiner Geschichte", "profile.save": "Speichern", "profile.adjust": "Fotoausschnitt anpassen", "profile.remove": "Foto entfernen", "profile.saved": "Profil gespeichert ✦", "profile.saveError": "Speichern fehlgeschlagen: Das Foto ist zu groß oder der Browser blockiert den Speicher.", "crop.title": "Fotoausschnitt", "crop.zoom": "Zoom", "crop.hint": "Ziehe das Foto, um den Ausschnitt zu wählen. Zoome mit dem Regler oder dem Mausrad.", "crop.ok": "Fertig", "crop.cancel": "Abbrechen", "settings.title": "Einstellungen", "settings.language": "Sprache", "settings.music": "Musik der Website", "settings.musicSub": "Leise Hintergrundmelodie", "settings.volume": "Lautstärke", "intro.tap": "tippe auf den Bildschirm", "intro.enter": "Website betreten", "game.close": "Spiel schließen", "tma.title": "Dunkelheit des Herzens", "tma.desc": "Man zwang mich, meine geliebte Einöde zu verlassen und an den Hof zu kommen. Jetzt bin ich euer größtes Problem. Und meins ist ein heuchlerischer Prinz.", "feniks.title": "Phönix", "feniks.desc": "Bei Tag die begehrteste Tänzerin der Hauptstadt, bei Nacht ein Schatten mit Krallen. Der Kampf für Gerechtigkeit ist hart. Mit jedem Aufgang von Sonne und Mond sterbe ich und werde neu geboren.", "obuzdat.title": "Die Erinnerung zähmen", "obuzdat.desc": "Von einem Moment auf den anderen lässt mich mein Gedächtnis im Stich und teilt mich in Stücke. Um mich nicht zu verlieren, muss ich die Erinnerung zweier Leben zähmen.", "nit.title": "Der Faden zweier Welten", "nit.desc": "Einmal schenkte man mir einen Augenblick Freiheit, und ich verlor ihn in der Zukunft. Doch ich habe auch vieles gewonnen…<br>Er ist die Quelle meiner Probleme, doch er taucht genau im richtigen Moment auf.", "filter.title": "Filter", "filter.status": "Status", "filter.genre": "Genre", "filter.reset": "Zurücksetzen", "filter.found": "Gefundene Geschichten: {n}", "filter.none": "Nichts gefunden. Versuche andere Filter.", "status.ongoing": "Läuft", "status.soon": "Demnächst", "status.done": "Abgeschlossen", "genre.romance": "Romantik", "genre.drama": "Drama", "genre.adventure": "Abenteuer", "genre.action": "Action", "genre.academy": "Akademie", "genre.mystery": "Geheimnisse", "genre.family": "Familie", "genre.magic": "Magie", "genre.friends": "Freunde", "genre.disguise": "Verkleidung", "genre.past": "Vergangenheit", "genre.asia": "Asien", "genre.heavy": "Schwere Themen", "genre.cruelty": "Gewalt", "genre.humor": "Humor", "genre.monster": "Monster", "genre.lightdark": "Licht und Dunkelheit", "genre.struggle": "Kampf", "genre.future": "Zukunft", "settings.brightness": "Helligkeit", "settings.brightnessSub": "Helligkeit des Hintergrunds", "settings.perRow": "Geschichten pro Reihe", "settings.pc": "Am Computer", "settings.phone": "Am Handy", "acc.title": "Konto", "acc.sub": "Melde dich an, damit Profil, Favoriten, Werte und Spielstände auf all deinen Geräten verfügbar sind.", "acc.subIn": "Alles wird im Konto gespeichert und erscheint auf deinen anderen Geräten.", "acc.login": "Login", "acc.password": "Passwort", "acc.signin": "Anmelden", "acc.signup": "Konto erstellen", "acc.as": "Angemeldet als", "acc.newLogin": "Neuer Login", "acc.newPass": "Neues Passwort", "acc.saveChanges": "Speichern", "acc.signout": "Abmelden", "acc.offline": "Anmeldung gerade nicht möglich – keine Verbindung zum Server.", "acc.fill": "Login und Passwort eingeben.", "acc.wait": "Bitte warten…", "acc.wrong": "Falscher Login oder falsches Passwort.", "acc.signedIn": "Angemeldet ✦", "acc.badLogin": "Login: 3–24 Zeichen – Buchstaben, Ziffern, Punkt, Bindestrich oder _.", "acc.shortPass": "Passwort: mindestens 6 Zeichen.", "acc.taken": "Dieser Login ist bereits vergeben.", "acc.err": "Das hat nicht geklappt. Bitte erneut versuchen.", "acc.created": "Konto erstellt ✦", "acc.changed": "Änderungen gespeichert ✦", "acc.signedOut": "Du bist abgemeldet.", "acc.syncing": "Wird im Konto gespeichert…", "acc.synced": "Alles ist im Konto gespeichert ✦", "acc.syncErr": "Speichern im Konto fehlgeschlagen – neuer Versuch später.", "settings.mdesign": "Mobiles Design", "settings.mdesignSub": "Hochformat-Cover und kurze Beschreibungen", "viewer.close": "Schließen", "viewer.hint": "Mausrad oder zwei Finger zum Zoomen", "viewer.statsHint": "Bild antippen – Werte der Geschichte", "news.title": "Neuigkeiten", "news.all": "Alle Neuigkeiten", "news.n1": "Neue Geschichten: Schatten der Hoffnung und Dunkelheit des Herzens", "stat.dark": "Dunkelheit", "stat.life": "Leben", "stat.clear": "Klar", "stat.fog": "Neblig", "viewer.open": "Titelbild öffnen", "shram.title": "Treue Narbe", "shram.desc": "Wenn man in einem Augenblick alles verliert und einem ein fremdes Leben aufgezwungen wird, bleiben zwei Möglichkeiten: kämpfen oder sich anpassen. Doch ich werde eine dritte finden."}, "ko": {"site.title": "평행 세계 이야기", "site.subtitle": "모든 이야기가 현실이 되는 곳", "nav.stories": "이야기", "nav.profile": "프로필", "nav.scenes": "컷신", "nav.features": "기능", "nav.favorites": "즐겨찾기", "card.play": "플레이", "card.soon": "곧 공개", "card.soonBadge": "곧 공개 예정", "aliy.title": "붉은 새벽", "aliy.sub": "49일", "aliy.desc": "평생을 황금 새장 속에서 살아왔다. 이제 그 새장을 부술 때다! 하지만 앞에는 수많은 비밀과 발견이 기다리고 있다. 첫 번째 규칙 — 살아남을 것.", "ten.title": "희망의 그림자", "ten.desc": "나는 언제나 삶에서 빛을 찾아냈다. 하지만 가장 어두운 날들엔 그럴 수 없었다.<br>추억과 희망 — 그것이 내가 가진 전부다. 아직은…", "odin.title": "한 번의 숨", "odin.desc": "전쟁이 낯선 깃발을 앞세워 나의 집에 찾아왔다. 삶과 죽음 사이엔 단 한 번의 숨뿐 — 내가 누가 될지는 내가 정한다.", "za.title": "경계 너머", "za.desc": "한쪽엔 햇살과 고향이, 다른 쪽엔 괴물이 성에서 기다리는 어두운 숲이 있다. 경계를 한 걸음 넘으면, 돌아갈 길은 없다.", "fav.add": "즐겨찾기에 추가", "fav.remove": "즐겨찾기에서 삭제", "favorites.empty": "좋아하는 이야기가 여기에 표시됩니다.<br>이야기 카드의 ♡를 눌러 추가하세요.", "scenes.empty": "시청한 컷신이 여기에 모입니다.", "features.empty": "프로젝트의 추가 기능.", "profile.changePhoto": "사진 변경", "profile.defaultName": "여행자", "profile.defaultStatus": "자기소개를 해 주세요", "profile.name": "이름", "profile.namePh": "이름이 무엇인가요?", "profile.status": "상태 메시지", "profile.statusPh": "예: 나만의 이야기를 찾는 중", "profile.save": "저장", "profile.adjust": "사진 영역 조정", "profile.remove": "사진 삭제", "profile.saved": "프로필이 저장되었습니다 ✦", "profile.saveError": "저장할 수 없습니다: 사진이 너무 크거나 브라우저가 저장을 차단했습니다.", "crop.title": "사진 영역", "crop.zoom": "확대", "crop.hint": "사진을 드래그해 영역을 선택하세요. 슬라이더나 마우스 휠로 확대할 수 있습니다.", "crop.ok": "완료", "crop.cancel": "취소", "settings.title": "설정", "settings.language": "언어", "settings.music": "사이트 음악", "settings.musicSub": "잔잔한 배경 음악", "settings.volume": "볼륨", "intro.tap": "화면을 터치하세요", "intro.enter": "입장하기", "game.close": "게임 닫기", "tma.title": "마음의 어둠", "tma.desc": "사랑하는 시골을 떠나 억지로 궁에 오게 되었다. 이제 나는 당신들의 가장 큰 골칫거리다. 그리고 내 골칫거리는 위선적인 왕자다.", "feniks.title": "피닉스", "feniks.desc": "낮에는 수도에서 가장 사랑받는 무희, 밤에는 발톱을 가진 그림자. 정의를 위한 싸움은 쉽지 않다. 해와 달이 뜰 때마다 나는 죽고 다시 태어난다.", "obuzdat.title": "기억을 길들이다", "obuzdat.desc": "어느 순간, 내 기억이 나를 배신하고 나를 조각조각 나눈다. 나 자신을 잃지 않으려면 두 삶의 기억을 길들여야 한다.", "nit.title": "두 세계의 실", "nit.desc": "한때 내게 자유의 순간이 주어졌고, 나는 그것을 미래에서 잃어버렸다. 하지만 얻은 것도 많았다…<br>그는 내 모든 문제의 근원이지만, 꼭 필요한 순간에 나타난다.", "filter.title": "필터", "filter.status": "상태", "filter.genre": "장르", "filter.reset": "초기화", "filter.found": "찾은 이야기: {n}", "filter.none": "결과가 없습니다. 다른 필터를 선택해 보세요.", "status.ongoing": "연재 중", "status.soon": "공개 예정", "status.done": "완결", "genre.romance": "로맨스", "genre.drama": "드라마", "genre.adventure": "모험", "genre.action": "액션", "genre.academy": "아카데미", "genre.mystery": "미스터리", "genre.family": "가족", "genre.magic": "마법", "genre.friends": "우정", "genre.disguise": "변장", "genre.past": "과거", "genre.asia": "아시아", "genre.heavy": "무거운 주제", "genre.cruelty": "폭력", "genre.humor": "유머", "genre.monster": "괴물", "genre.lightdark": "빛과 어둠", "genre.struggle": "투쟁", "genre.future": "미래", "settings.brightness": "밝기", "settings.brightnessSub": "사이트 배경 밝기", "settings.perRow": "한 줄에 표시할 이야기", "settings.pc": "컴퓨터", "settings.phone": "휴대폰", "acc.title": "계정", "acc.sub": "로그인하면 프로필, 즐겨찾기, 능력치, 게임 저장이 모든 기기에서 유지됩니다.", "acc.subIn": "모든 것이 계정에 저장되어 다른 기기에서도 보입니다.", "acc.login": "아이디", "acc.password": "비밀번호", "acc.signin": "로그인", "acc.signup": "계정 만들기", "acc.as": "로그인 계정:", "acc.newLogin": "새 아이디", "acc.newPass": "새 비밀번호", "acc.saveChanges": "저장", "acc.signout": "로그아웃", "acc.offline": "지금은 로그인할 수 없습니다 — 서버에 연결되지 않습니다.", "acc.fill": "아이디와 비밀번호를 입력하세요.", "acc.wait": "잠시만요…", "acc.wrong": "아이디 또는 비밀번호가 틀렸습니다.", "acc.signedIn": "로그인했습니다 ✦", "acc.badLogin": "아이디: 3~24자 — 글자, 숫자, 점, 하이픈 또는 _.", "acc.shortPass": "비밀번호는 6자 이상이어야 합니다.", "acc.taken": "이미 사용 중인 아이디입니다.", "acc.err": "문제가 생겼습니다. 다시 시도해 주세요.", "acc.created": "계정이 만들어졌습니다 ✦", "acc.changed": "변경 사항이 저장되었습니다 ✦", "acc.signedOut": "로그아웃했습니다.", "acc.syncing": "계정에 저장 중…", "acc.synced": "모두 계정에 저장되었습니다 ✦", "acc.syncErr": "계정에 저장하지 못했습니다 — 나중에 다시 시도합니다.", "settings.mdesign": "모바일 디자인", "settings.mdesignSub": "세로 표지와 짧은 소개", "viewer.close": "닫기", "viewer.hint": "마우스 휠 또는 두 손가락으로 확대", "viewer.statsHint": "그림을 누르면 이야기 능력치", "news.title": "소식", "news.all": "모든 소식", "news.n1": "새 이야기: 희망의 그림자와 마음의 어둠", "stat.dark": "어둠", "stat.life": "생명", "stat.clear": "맑음", "stat.fog": "안개", "viewer.open": "표지 크게 보기", "shram.title": "충직한 흉터", "shram.desc": "한순간에 모든 것을 잃고 남의 삶을 강요당할 때, 남은 선택지는 두 가지뿐이다. 싸우거나, 적응하거나. 하지만 나는 세 번째 길을 찾을 것이다."}};
 var LANGS=['ru','en','es','de','ko'];
 var LANG=(function(){
   var s=null; try{s=localStorage.getItem('ipm_lang')}catch(e){}
@@ -861,6 +928,28 @@ window.siteMusic=(function(){
 (function(){
   var v=document.getElementById('viewer'), img=document.getElementById('viewerImg'), hint=document.getElementById('viewerHint');
   var W,H,bw,bh,s=1,tx=0,ty=0, MAXS=5, pts={}, lastDist=0, moved=false, lastTap=0, hintTimer;
+  /* ---- Статы истории: второй клик по картинке показывает их поверх заставки.
+     Значения пишет сама игра в браузер (localStorage 'ipm_stats'), сайт только читает.
+     Картинки — stats/<id истории>/<стат>.svg */
+  var STATS={'aliy-rassvet':['dark','life','clear','fog']};
+  var statsBox=document.getElementById('viewerStats'), storyId=null;
+  function statValues(id){var all={};try{all=JSON.parse(localStorage.getItem('ipm_stats')||'{}')}catch(e){} return all[id]||{};}
+  function buildStats(){
+    statsBox.innerHTML=''; statsBox.classList.remove('on');
+    var list=STATS[storyId]; if(!list) return;
+    var vals=statValues(storyId);
+    list.forEach(function(st){
+      var d=document.createElement('div'); d.className='v-stat';
+      d.innerHTML='<img src="stats/'+storyId+'/'+st+'.svg" alt=""><span>'+t('stat.'+st)+'</span><b>'+(+vals[st]||0)+'</b>';
+      statsBox.appendChild(d);
+    });
+  }
+  function placeStats(){
+    if(!statsBox) return;
+    var w=Math.min(W,bw*s), left=Math.max(0,tx), top=Math.max(0,ty);
+    statsBox.style.left=left+'px'; statsBox.style.top=(top+8)+'px'; statsBox.style.width=w+'px';
+  }
+  function toggleStats(){ if(!STATS[storyId]) return; if(!statsBox.classList.contains('on')) buildStats(); statsBox.classList.toggle('on'); placeStats(); }
   function fit(){
     W=v.clientWidth; H=v.clientHeight;
     var k=Math.min(W/img.naturalWidth,H/img.naturalHeight);
@@ -873,12 +962,14 @@ window.siteMusic=(function(){
     tx = w<=W ? (W-w)/2 : Math.min(0,Math.max(W-w,tx));
     ty = h<=H ? (H-h)/2 : Math.min(0,Math.max(H-h,ty));
   }
-  function draw(){clamp(); img.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'}
+  function draw(){clamp(); img.style.transform='translate('+tx+'px,'+ty+'px) scale('+s+')'; placeStats()}
   function zoomAt(ns,px,py){
     ns=Math.min(MAXS,Math.max(1,ns));
     tx=px-(px-tx)*ns/s; ty=py-(py-ty)*ns/s; s=ns; draw();
   }
-  function open(file,label){
+  function open(file,label,id){
+    storyId=id||null; buildStats();
+    hint.textContent=t(STATS[storyId]?'viewer.statsHint':'viewer.hint');
     img.onerror=null;
     img.onload=fit;
     img.alt=label||'';
@@ -901,7 +992,7 @@ window.siteMusic=(function(){
   document.addEventListener('click',function(e){
     var c=e.target.closest('.cover[data-cover]'); if(!c||e.target.closest('.heart'))return;
     var card=c.closest('.card'), h=card&&card.querySelector('h3');
-    open(c.dataset.cover,h?h.textContent:'');
+    open(c.dataset.cover,h?h.textContent:'',card&&card.dataset.id);
   });
 
   v.addEventListener('wheel',function(e){
@@ -909,8 +1000,10 @@ window.siteMusic=(function(){
     zoomAt(s*Math.exp(-e.deltaY*0.0015),e.clientX-r.left,e.clientY-r.top);
   },{passive:false});
 
+  var downT=null;
   v.addEventListener('pointerdown',function(e){
     if(e.target.closest('.v-close'))return;
+    downT=e.target;   // куда нажали (после захвата указателя e.target у pointerup всегда сам просмотрщик)
     v.setPointerCapture(e.pointerId); pts[e.pointerId]={x:e.clientX,y:e.clientY}; moved=false;
     if(Object.keys(pts).length===1) img.classList.add('dragging');
   });
@@ -939,7 +1032,9 @@ window.siteMusic=(function(){
       if(now-lastTap<300){ zoomAt(s>1.05?1:2.5,px,py); lastTap=0; return; }   // двойной тап/клик
       lastTap=now;
       // одиночный клик по фону вне картинки — закрыть
-      if(e.target===v && s<=1.05){ setTimeout(function(){ if(lastTap===now) close(); },300); }
+      if(downT===v && s<=1.05){ setTimeout(function(){ if(lastTap===now) close(); },300); }
+      // одиночный клик по самой картинке — показать / спрятать статы истории
+      else if(downT===img){ setTimeout(function(){ if(lastTap===now) toggleStats(); },300); }
     }
   }
   v.addEventListener('pointerup',up); v.addEventListener('pointercancel',up);
@@ -975,5 +1070,204 @@ document.addEventListener('click',function(e){
 });
 document.getElementById('langSelect').onchange=function(){applyLang(this.value)};
 applyLang();
+
+/* ================= АККАУНТ: вход по логину и паролю, синхронизация между устройствами =================
+   Сервер — Supabase. В облако уходит всё, что сайт и игры хранят в браузере с приставкой ipm_
+   (профиль, избранное, настройки, статы, сохранения игр). При входе на другом устройстве
+   облачные данные подтягиваются, страница обновляется. */
+(function(){
+  var SB_URL='https://nmpurpeiozwchzlilxbr.supabase.co';
+  var SB_KEY='sb_publishable_JvKBZjNBfXHlyGlMq2_Plw_5Vj7zpVK';
+  var DOMAIN='players.talesparallelworlds.github.io';
+  var META={'ipm_sync_at':1,'ipm_sync_user':1};
+  var $=function(id){return document.getElementById(id)};
+  var box=$('account'); if(!box) return;
+  if(!window.supabase||!window.supabase.createClient){ $('accMsg').textContent=t('acc.offline'); return; }
+  var sb=window.supabase.createClient(SB_URL,SB_KEY);
+  var user=null, login='', lastPushed=null, busy=false, timer=null;
+
+  function msg(key,ok){var m=$('accMsg'); m.textContent=key?t(key):''; m.classList.toggle('ok',!!ok);}
+  function validLogin(l){return l.length>=3&&l.length<=24&&/^[\p{L}\p{N}_.\-]+$/u.test(l)}
+  function randomEmail(){var a=new Uint8Array(10);crypto.getRandomValues(a);return 'u_'+Array.from(a).map(function(x){return x.toString(16).padStart(2,'0')}).join('')+'@'+DOMAIN}
+
+  function snapshot(){
+    var d={};
+    for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i); if(k&&k.indexOf('ipm_')===0&&!META[k]) d[k]=localStorage.getItem(k);}
+    return d;
+  }
+  function stable(d){return JSON.stringify(Object.keys(d).sort().map(function(k){return [k,d[k]]}))}
+  function applyData(d){
+    var rm=[]; for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i); if(k&&k.indexOf('ipm_')===0&&!META[k]&&!(k in d)) rm.push(k);}
+    rm.forEach(function(k){localStorage.removeItem(k)});
+    Object.keys(d).forEach(function(k){ if(typeof d[k]==='string') localStorage.setItem(k,d[k]); });
+  }
+  function show(){
+    var on=!!user;
+    $('accForm').hidden=on; $('accIn').hidden=!on;
+    $('accSub').textContent=t(on?'acc.subIn':'acc.sub');
+    if(on) $('accWho').textContent=login;
+  }
+  function syncState(key){ var s=$('accSync'); if(s) s.textContent=key?t(key):''; }
+
+  async function push(force){
+    if(!user||busy) return;
+    var d=snapshot(), s=stable(d);
+    if(!force&&s===lastPushed) return;
+    busy=true; syncState('acc.syncing');
+    var r=await sb.from('saves').update({data:d,updated_at:new Date().toISOString()}).eq('user_id',user.id).select('updated_at');
+    busy=false;
+    if(!r.error&&r.data&&!r.data.length){   // строки ещё нет — создаём
+      r=await sb.from('saves').insert({user_id:user.id,login:login,data:d}).select('updated_at');
+    }
+    if(r.error||!r.data||!r.data.length){ syncState('acc.syncErr'); return; }
+    lastPushed=s; localStorage.setItem('ipm_sync_at',r.data[0].updated_at); syncState('acc.synced');
+  }
+  // облако новее, чем то, что видело это устройство, — забираем
+  async function pull(){
+    var r=await sb.from('saves').select('login,data,updated_at').eq('user_id',user.id).maybeSingle();
+    if(r.error) return 'err';
+    if(!r.data) return 'none';
+    login=r.data.login||login;
+    var seen=localStorage.getItem('ipm_sync_at');
+    if(!seen||new Date(r.data.updated_at)>new Date(seen)){
+      applyData(r.data.data||{});
+      localStorage.setItem('ipm_sync_at',r.data.updated_at);
+      lastPushed=stable(snapshot());
+      return 'applied';
+    }
+    return 'same';
+  }
+  function reloadOnce(){ try{ if(sessionStorage.getItem('ipm_sync_reload')) return; sessionStorage.setItem('ipm_sync_reload','1'); }catch(e){} location.reload(); }
+  function startAuto(){
+    clearInterval(timer); timer=setInterval(function(){push()},5000);
+  }
+  window.addEventListener('storage',function(e){ if(user&&e.key&&e.key.indexOf('ipm_')===0) setTimeout(function(){push()},800); });
+  document.addEventListener('visibilitychange',function(){ if(document.hidden) push(); });
+
+  async function afterSignIn(u,isNew){
+    user=u; localStorage.setItem('ipm_sync_user',u.id);
+    if(isNew){ await push(true); }
+    else { var r=await pull(); if(r==='applied'){ reloadOnce(); return; } await push(); }
+    show(); startAuto();
+  }
+
+  $('accForm').addEventListener('submit',async function(e){
+    e.preventDefault(); var l=$('accLogin').value.trim(), p=$('accPass').value;
+    if(!l||!p){msg('acc.fill');return}
+    msg('acc.wait',true);
+    var r=await sb.rpc('email_for_login',{p_login:l});
+    if(r.error||!r.data){msg('acc.wrong');return}
+    var s=await sb.auth.signInWithPassword({email:r.data,password:p});
+    if(s.error||!s.data.user){msg('acc.wrong');return}
+    // на этом устройстве раньше был другой аккаунт — данные берём из облака
+    if(localStorage.getItem('ipm_sync_user')!==s.data.user.id) localStorage.removeItem('ipm_sync_at');
+    login=l; $('accPass').value=''; msg('acc.signedIn',true);
+    await afterSignIn(s.data.user,false);
+  });
+
+  $('accSignUp').onclick=async function(){
+    var l=$('accLogin').value.trim(), p=$('accPass').value;
+    if(!validLogin(l)){msg('acc.badLogin');return}
+    if(p.length<6){msg('acc.shortPass');return}
+    msg('acc.wait',true);
+    var taken=await sb.rpc('login_taken',{p_login:l});
+    if(taken.error){msg('acc.err');return}
+    if(taken.data){msg('acc.taken');return}
+    var s=await sb.auth.signUp({email:randomEmail(),password:p});
+    if(s.error||!s.data.user||!s.data.session){msg('acc.err');return}
+    var ins=await sb.from('saves').insert({user_id:s.data.user.id,login:l,data:snapshot()});
+    if(ins.error){ await sb.auth.signOut(); msg(ins.error.code==='23505'?'acc.taken':'acc.err'); return; }
+    login=l; $('accPass').value=''; localStorage.removeItem('ipm_sync_at');
+    msg('acc.created',true);
+    await afterSignIn(s.data.user,true);
+  };
+
+  $('accChange').addEventListener('submit',async function(e){
+    e.preventDefault(); if(!user) return;
+    var nl=$('accNewLogin').value.trim(), np=$('accNewPass').value, done=false;
+    if(nl&&nl!==login){
+      if(!validLogin(nl)){msg('acc.badLogin');return}
+      var r=await sb.from('saves').update({login:nl}).eq('user_id',user.id);
+      if(r.error){msg(r.error.code==='23505'?'acc.taken':'acc.err');return}
+      login=nl; done=true;
+    }
+    if(np){
+      if(np.length<6){msg('acc.shortPass');return}
+      var u=await sb.auth.updateUser({password:np});
+      if(u.error){msg('acc.err');return}
+      done=true;
+    }
+    $('accNewLogin').value=''; $('accNewPass').value='';
+    if(done){show(); msg('acc.changed',true);}
+  });
+
+  $('accOut').onclick=async function(){ await push(); await sb.auth.signOut(); user=null; clearInterval(timer); show(); syncState(''); msg('acc.signedOut',true); };
+
+  document.addEventListener('langchange',show);
+  // уже вошли раньше на этом устройстве
+  sb.auth.getSession().then(async function(r){
+    var s=r.data&&r.data.session;
+    if(s&&s.user){
+      user=s.user;
+      var res=await pull();
+      if(res==='applied'){ reloadOnce(); return; }
+      try{sessionStorage.removeItem('ipm_sync_reload')}catch(e){}
+      await push(); show(); startAuto();
+    } else show();
+  });
+})();
+
+
+/* ================= НОВОСТИ =================
+   Новую новость добавить сюда (сверху — самая свежая). Картинки — в папке news/:
+   <id>.jpg (компьютер), <id>_m.jpg (телефон), <id>_t.jpg (маленькая для списка).
+   Прочитанные запоминаются (ipm_news_read) и переносятся в аккаунт. */
+(function(){
+  var NEWS=[
+    {id:'2026-11-new-stories', date:'2026-11-13', title:'news.n1'}
+  ];
+  var btn=document.getElementById('newsBtn'), list=document.getElementById('newsList'),
+      view=document.getElementById('newsView'), img=document.getElementById('newsImg');
+  var read=[]; try{read=JSON.parse(localStorage.getItem('ipm_news_read')||'[]')}catch(e){}
+  var queue=[];
+  function store(){try{localStorage.setItem('ipm_news_read',JSON.stringify(read))}catch(e){}}
+  function unread(){return NEWS.filter(function(n){return read.indexOf(n.id)<0})}
+  function fmt(d){try{return new Date(d+'T12:00:00').toLocaleDateString(LANG==='ko'?'ko-KR':LANG,{day:'numeric',month:'long',year:'numeric'})}catch(e){return d}}
+  function render(){
+    btn.classList.toggle('unread',unread().length>0);
+    list.innerHTML='<h4>'+t('news.all')+'</h4>';
+    NEWS.forEach(function(n){
+      var b=document.createElement('button'); b.type='button'; b.className='news-item'+(read.indexOf(n.id)<0?' new':'');
+      b.innerHTML='<img src="news/'+n.id+'_t.jpg" alt=""><span><b></b><small></small></span>';
+      b.querySelector('b').textContent=t(n.title); b.querySelector('small').textContent=fmt(n.date);
+      b.onclick=function(){queue=[];openNews(n)};
+      list.appendChild(b);
+    });
+  }
+  function openNews(n){
+    img.src='news/'+n.id+(isPhone()?'_m':'')+'.jpg'; img.alt=t(n.title);
+    view.classList.add('on'); view.setAttribute('aria-hidden','false');
+    if(read.indexOf(n.id)<0){read.push(n.id);store();}
+    render();
+  }
+  function closeNews(){
+    view.classList.remove('on'); view.setAttribute('aria-hidden','true');
+    if(queue.length){ setTimeout(function(){openNews(queue.shift())},350); return; }
+    // всё прочитано — рядом со значком список всех новостей
+    if(!unread().length) setTimeout(function(){list.classList.add('on');btn.classList.add('open')},350);
+  }
+  btn.onclick=function(e){
+    e.stopPropagation();
+    var u=unread();
+    if(u.length){ list.classList.remove('on'); queue=u.slice(1); openNews(u[0]); return; }
+    var on=!list.classList.contains('on'); list.classList.toggle('on',on); btn.classList.toggle('open',on);
+  };
+  document.getElementById('newsClose').onclick=function(e){e.stopPropagation();closeNews()};
+  view.addEventListener('click',function(e){ if(e.target===view) closeNews(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&view.classList.contains('on')) closeNews(); });
+  document.addEventListener('click',function(e){ if(list.classList.contains('on')&&!list.contains(e.target)&&e.target!==btn){list.classList.remove('on');btn.classList.remove('open')} });
+  document.addEventListener('langchange',render);
+  render();
+})();
 </script>
 </body></html>

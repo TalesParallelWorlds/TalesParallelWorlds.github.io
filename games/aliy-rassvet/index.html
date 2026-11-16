@@ -122,8 +122,8 @@ html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#
   document.body.appendChild(script);
 </script>
 <script>
-  // на телефоне держим экран вертикальным (где браузер это позволяет)
-  try { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('portrait').catch(function(){}); } catch (e) {}
+  // на телефоне держим экран вертикальным (где браузер это позволяет); планшет можно поворачивать
+  try { if (Math.min(screen.width, screen.height) < 600 && screen.orientation && screen.orientation.lock) screen.orientation.lock('portrait').catch(function(){}); } catch (e) {}
 </script>
 </body>
 </html>

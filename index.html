@@ -1083,7 +1083,10 @@ applyLang();
   var $=function(id){return document.getElementById(id)};
   var box=$('account'); if(!box) return;
   if(!window.supabase||!window.supabase.createClient){ $('accMsg').textContent=t('acc.offline'); return; }
-  var sb=window.supabase.createClient(SB_URL,SB_KEY);
+  // lock: без navigator.locks — иначе вход/регистрация иногда «зависают» навсегда (несколько вкладок, уснувшая вкладка)
+  var sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{lock:async function(n,t,fn){return await fn()}}});
+  // любой запрос к серверу — не дольше 15 секунд, иначе «Не получилось»
+  function T(p){return Promise.race([p,new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'))},15000)})])}
   var user=null, login='', lastPushed=null, busy=false, timer=null;
 
   function msg(key,ok){var m=$('accMsg'); m.textContent=key?t(key):''; m.classList.toggle('ok',!!ok);}
@@ -1152,35 +1155,41 @@ applyLang();
   }
 
   $('accForm').addEventListener('submit',async function(e){
-    e.preventDefault(); var l=$('accLogin').value.trim(), p=$('accPass').value;
+    e.preventDefault(); try{ await signIn(); }catch(err){ console.warn(err); msg('acc.err'); }
+  });
+  async function signIn(){
+    var l=$('accLogin').value.trim(), p=$('accPass').value;
     if(!l||!p){msg('acc.fill');return}
     msg('acc.wait',true);
-    var r=await sb.rpc('email_for_login',{p_login:l});
+    var r=await T(sb.rpc('email_for_login',{p_login:l}));
     if(r.error||!r.data){msg('acc.wrong');return}
-    var s=await sb.auth.signInWithPassword({email:r.data,password:p});
+    var s=await T(sb.auth.signInWithPassword({email:r.data,password:p}));
     if(s.error||!s.data.user){msg('acc.wrong');return}
     // на этом устройстве раньше был другой аккаунт — данные берём из облака
     if(localStorage.getItem('ipm_sync_user')!==s.data.user.id) localStorage.removeItem('ipm_sync_at');
     login=l; $('accPass').value=''; msg('acc.signedIn',true);
     await afterSignIn(s.data.user,false);
-  });
+  }
 
   $('accSignUp').onclick=async function(){
+    try{ await signUp(); }catch(err){ console.warn(err); msg('acc.err'); }
+  };
+  async function signUp(){
     var l=$('accLogin').value.trim(), p=$('accPass').value;
     if(!validLogin(l)){msg('acc.badLogin');return}
     if(p.length<6){msg('acc.shortPass');return}
     msg('acc.wait',true);
-    var taken=await sb.rpc('login_taken',{p_login:l});
+    var taken=await T(sb.rpc('login_taken',{p_login:l}));
     if(taken.error){msg('acc.err');return}
     if(taken.data){msg('acc.taken');return}
-    var s=await sb.auth.signUp({email:randomEmail(),password:p});
+    var s=await T(sb.auth.signUp({email:randomEmail(),password:p}));
     if(s.error||!s.data.user||!s.data.session){msg('acc.err');return}
-    var ins=await sb.from('saves').insert({user_id:s.data.user.id,login:l,data:snapshot()});
+    var ins=await T(sb.from('saves').insert({user_id:s.data.user.id,login:l,data:snapshot()}));
     if(ins.error){ await sb.auth.signOut(); msg(ins.error.code==='23505'?'acc.taken':'acc.err'); return; }
     login=l; $('accPass').value=''; localStorage.removeItem('ipm_sync_at');
     msg('acc.created',true);
     await afterSignIn(s.data.user,true);
-  };
+  }
 
   $('accChange').addEventListener('submit',async function(e){
     e.preventDefault(); if(!user) return;
